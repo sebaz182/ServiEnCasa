@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ServiEnCasa_v01.Models.Tareas>
+@{
+    ViewBag.Title = "Tareas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administración de Tareas</h2>
+<hr />
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+        <table class="table table-striped custab">
+            <thead>
+                @using (Html.BeginForm("Busqueda", "Tareas", FormMethod.Get))
+                {
+                    @Html.DropDownList("ProfesionId", (SelectList)ViewBag.ProfesionId, "Seleccionar Profesión", new { @class = "form-control" })
+                    <input type="submit" value="Buscar Profesion" class="btn btn-primary" />
+                }
+                    <a href="@Url.Action("Create", "Tareas")" class="btn btn-primary btn-xs pull-right"><b>+</b> Agregar Nueva Tarea </a>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tarea</th>
+                        <th>Profesión</th>
+                        <th class="text-center">Acción</th>
+                    </tr>
+                </thead>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var p in Model)
+                    {
+                        <tr>
+                            <td>@p.Id_Tarea</td>
+                            <td>@p.Desc_Tarea.</td>
+                            <td>@p.Profesiones.Desc_Profesion.ToString()</td>
+                            <td class="text-center">
+                                <a class='btn btn-info btn-xs' href="@Url.Action("Edit","Tareas",new { id = p.Id_Tarea})"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                                <a href="@Url.Action("Delete","Tareas",new { id = p.Id_Tarea})" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
