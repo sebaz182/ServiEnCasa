@@ -22,4 +22,26 @@ namespace ServiEnCasa_v01.Models
         public string profesion { get; set; }
     }
 
+    public class CrearTareaViewModel
+    {
+        [Required]
+        [Display(Name = "Profesión")]
+        public int ProfesionID { get; set; }
+
+        [Required]
+        [Display(Name = "Tarea")]
+        public string tarea { get; set; }
+    }
+
+    public class EditarTareaViewModel
+    {
+        public int id { get; set; } 
+
+        [Display(Name = "Profesión")]
+        public string profesion { get; set; }
+
+        [Required]
+        [Display(Name = "Tarea")]
+        public string tarea { get; set; }
+    }
 }

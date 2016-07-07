@@ -130,8 +130,11 @@ namespace ServiEnCasa_v01.Controllers
                 {
                     return HttpNotFound();
                 }
-                db.Entry(profesion).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
+                if (profesion.Tareas.Count() >= 0)
+                {
+                    db.Entry(profesion).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+                }
 
                 // TODO: Add delete logic here
 
