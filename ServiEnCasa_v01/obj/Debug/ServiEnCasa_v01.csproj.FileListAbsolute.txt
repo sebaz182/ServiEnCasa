@@ -107,6 +107,6 @@ C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código
 C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\bin\es\System.Web.WebPages.resources.dll
 C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\bin\es\System.Web.WebPages.Razor.resources.dll
-C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\obj\Debug\ServiEnCasa_v01.csprojResolveAssemblyReference.cache
 C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\obj\Debug\ServiEnCasa_v01.dll
 C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\obj\Debug\ServiEnCasa_v01.pdb
+C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\obj\Debug\ServiEnCasa_v01.csprojResolveAssemblyReference.cache

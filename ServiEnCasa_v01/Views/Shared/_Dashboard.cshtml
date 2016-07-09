@@ -1,0 +1,46 @@
+﻿<div id="sidebar" class="nav-collapse">
+    <!-- sidebar menu start-->
+    <ul class="sidebar-menu" id="nav-accordion">
+        <li class="sub-menu">
+            <a class="active" href="javascript:;">
+                <i class="fa fa-dashboard"></i>
+                <span>Administrador</span>
+            </a>
+            <ul class="sub">
+                @*@if (Request.IsAuthenticated && User.IsInRole("Admin"))*@
+                @*{*@
+                    <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+                    <li>@Html.ActionLink("Profesiones", "Index", "Profesiones")</li>
+                    <li>@Html.ActionLink("Tareas", "Index", "Tareas")</li>
+                @*}*@
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-suitcase"></i>
+                <span>Viajes</span>
+            </a>
+            <ul class="sub">
+                @if (Request.IsAuthenticated && User.IsInRole("Reservas"))
+                {
+                    <li>@Html.ActionLink("Pasajes", "Index", "Pasajes")</li>
+                    <li>@Html.ActionLink("Hoteles", "Index", "Hoteles")</li>
+                }
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class=" fa fa-bar-chart-o"></i>
+                <span>Reportes</span>
+            </a>
+            <ul class="sub">
+                @if (Request.IsAuthenticated && User.IsInRole("Reportes"))
+                {
+                    <li>@Html.ActionLink("Pasajes", "Reportes", "Pasajes")</li>
+                    <li>@Html.ActionLink("Hoteles", "Reportes", "Hoteles")</li>
+                }
+            </ul>
+        </li>
+    </ul>
+    <!-- sidebar menu end-->
+</div>
