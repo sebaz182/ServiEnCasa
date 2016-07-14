@@ -1,17 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModeloStoreContainer" CdmEntityContainer="ModeloContainer">
-    <EntitySetMapping Name="Servis">
-      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Servis)">
-        <MappingFragment StoreEntitySet="Servis">
-          <ScalarProperty Name="Id_Servi" ColumnName="Id_Servi" />
-          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Mail" ColumnName="Mail" />
-          <ScalarProperty Name="DNI" ColumnName="DNI" />
-          <ScalarProperty Name="Matricula" ColumnName="Matricula" />
-          <ScalarProperty Name="Pass" ColumnName="Pass" />
-          <ScalarProperty Name="Activo" ColumnName="Activo" />
+    <EntitySetMapping Name="Presupuestos">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Presupuestos)">
+        <MappingFragment StoreEntitySet="Presupuestos">
+          <ScalarProperty Name="Id_Presupuesto" ColumnName="Id_Presupuesto" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha_Vencimiento" ColumnName="Fecha_Vencimiento" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Solicitudes_Id_Ssolisitud" ColumnName="Solicitudes_Id_Ssolisitud" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -23,11 +21,42 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Servis">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Servis)">
+        <MappingFragment StoreEntitySet="Servis">
+          <ScalarProperty Name="Id_Servi" ColumnName="Id_Servi" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DNI" ColumnName="DNI" />
+          <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Solicitudes">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Solicitudes)">
+        <MappingFragment StoreEntitySet="Solicitudes">
+          <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Contador" ColumnName="Contador" />
+          <ScalarProperty Name="Foto" ColumnName="Foto" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Zona" ColumnName="Zona" />
+          <ScalarProperty Name="Desc_Solicitud" ColumnName="Desc_Solicitud" />
+          <ScalarProperty Name="Usuarios_Id_Usuario" ColumnName="Usuarios_Id_Usuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Tareas">
       <EntityTypeMapping TypeName="IsTypeOf(Modelo.Tareas)">
         <MappingFragment StoreEntitySet="Tareas">
           <ScalarProperty Name="Id_Tarea" ColumnName="Id_Tarea" />
           <ScalarProperty Name="Desc_Tarea" ColumnName="Desc_Tarea" />
+          <ScalarProperty Name="Profesiones_Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -44,60 +73,89 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Solicitudes">
-      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Solicitudes)">
-        <MappingFragment StoreEntitySet="Solicitudes">
-          <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Contador" ColumnName="Contador" />
-          <ScalarProperty Name="Foto" ColumnName="Foto" />
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Zona" ColumnName="Zona" />
-          <ScalarProperty Name="Desc_Solicitud" ColumnName="Desc_Solicitud" />
+    <EntitySetMapping Name="Administradores">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Administradores)">
+        <MappingFragment StoreEntitySet="Administradores">
+          <ScalarProperty Name="Id_Administrador" ColumnName="Id_Administrador" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Presupuestos">
-      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Presupuestos)">
-        <MappingFragment StoreEntitySet="Presupuestos">
-          <ScalarProperty Name="Id_Presupuesto" ColumnName="Id_Presupuesto" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Fecha_Vencimiento" ColumnName="Fecha_Vencimiento" />
-          <ScalarProperty Name="Precio" ColumnName="Precio" />
-          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+    <EntitySetMapping Name="Perfiles">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Perfiles)">
+        <MappingFragment StoreEntitySet="Perfiles">
+          <ScalarProperty Name="Id_Perfil" ColumnName="Id_Perfil" />
+          <ScalarProperty Name="Perfil" ColumnName="Perfil" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="SolicitudesPresupuestos" TypeName="Modelo.SolicitudesPresupuestos" StoreEntitySet="Presupuestos">
-      <EndProperty Name="Solicitudes">
-        <ScalarProperty Name="Id_Ssolisitud" ColumnName="Solicitudes_Id_Ssolisitud" />
+    <AssociationSetMapping Name="ServisProfesiones" TypeName="Modelo.ServisProfesiones" StoreEntitySet="ServisProfesiones">
+      <EndProperty Name="Profesiones">
+        <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
+      </EndProperty>
+      <EndProperty Name="Servis">
+        <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServisPresupuestos" TypeName="Modelo.ServisPresupuestos" StoreEntitySet="Presupuestos">
+      <EndProperty Name="Servis">
+        <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
       </EndProperty>
       <EndProperty Name="Presupuestos">
         <ScalarProperty Name="Id_Presupuesto" ColumnName="Id_Presupuesto" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="UsuariosSolicitudes" TypeName="Modelo.UsuariosSolicitudes" StoreEntitySet="Solicitudes">
-      <EndProperty Name="Usuarios">
-        <ScalarProperty Name="Id_Usuario" ColumnName="Usuarios_Id_Usuario" />
+    <AssociationSetMapping Name="TareasSolicitudes" TypeName="Modelo.TareasSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Tareas">
+        <ScalarProperty Name="Id_Tarea" ColumnName="Tareas_Id_Tarea" />
       </EndProperty>
       <EndProperty Name="Solicitudes">
         <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ServisProfesiones" TypeName="Modelo.ServisProfesiones" StoreEntitySet="ServisProfesiones">
+    <AssociationSetMapping Name="ProfesionesSolicitudes" TypeName="Modelo.ProfesionesSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Profesiones">
+        <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
+      </EndProperty>
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsuariosPerfiles" TypeName="Modelo.UsuariosPerfiles" StoreEntitySet="UsuariosPerfiles">
+      <EndProperty Name="Usuarios">
+        <ScalarProperty Name="Id_Usuario" ColumnName="Usuarios_Id_Usuario" />
+      </EndProperty>
+      <EndProperty Name="Perfiles">
+        <ScalarProperty Name="Id_Perfil" ColumnName="Perfiles_Id_Perfil" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AdministradoresPerfiles" TypeName="Modelo.AdministradoresPerfiles" StoreEntitySet="AdministradoresPerfiles">
+      <EndProperty Name="Administradores">
+        <ScalarProperty Name="Id_Administrador" ColumnName="Administradores_Id_Administrador" />
+      </EndProperty>
+      <EndProperty Name="Perfiles">
+        <ScalarProperty Name="Id_Perfil" ColumnName="Perfiles_Id_Perfil" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServisPerfiles" TypeName="Modelo.ServisPerfiles" StoreEntitySet="ServisPerfiles">
       <EndProperty Name="Servis">
         <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
       </EndProperty>
-      <EndProperty Name="Profesiones">
-        <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
+      <EndProperty Name="Perfiles">
+        <ScalarProperty Name="Id_Perfil" ColumnName="Perfiles_Id_Perfil" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ProfesionesTareas" TypeName="Modelo.ProfesionesTareas" StoreEntitySet="Tareas">
-      <EndProperty Name="Profesiones">
-        <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
-      </EndProperty>
+    <AssociationSetMapping Name="TareasServis" TypeName="Modelo.TareasServis" StoreEntitySet="TareasServis">
       <EndProperty Name="Tareas">
-        <ScalarProperty Name="Id_Tarea" ColumnName="Id_Tarea" />
+        <ScalarProperty Name="Id_Tarea" ColumnName="Tareas_Id_Tarea" />
+      </EndProperty>
+      <EndProperty Name="Servis">
+        <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

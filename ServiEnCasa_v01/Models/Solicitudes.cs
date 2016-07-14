@@ -17,7 +17,6 @@ namespace ServiEnCasa_v01.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Solicitudes()
         {
-            this.Contador = 0;
             this.Presupuestos = new HashSet<Presupuestos>();
         }
     
@@ -28,9 +27,12 @@ namespace ServiEnCasa_v01.Models
         public System.DateTime Fecha { get; set; }
         public string Zona { get; set; }
         public string Desc_Solicitud { get; set; }
+        public int Usuarios_Id_Usuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Presupuestos> Presupuestos { get; set; }
         public virtual Usuarios Usuarios { get; set; }
+        public virtual Tareas Tareas { get; set; }
+        public virtual Profesiones Profesiones { get; set; }
     }
 }

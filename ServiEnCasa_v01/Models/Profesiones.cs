@@ -17,16 +17,19 @@ namespace ServiEnCasa_v01.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profesiones()
         {
-            this.Servis = new HashSet<Servis>();
             this.Tareas = new HashSet<Tareas>();
+            this.Servis = new HashSet<Servis>();
+            this.Solicitudes = new HashSet<Solicitudes>();
         }
     
         public int Id_Profesion { get; set; }
         public string Desc_Profesion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tareas> Tareas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servis> Servis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tareas> Tareas { get; set; }
+        public virtual ICollection<Solicitudes> Solicitudes { get; set; }
     }
 }

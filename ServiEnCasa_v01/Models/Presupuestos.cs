@@ -19,7 +19,9 @@ namespace ServiEnCasa_v01.Models
         public System.DateTime Fecha_Vencimiento { get; set; }
         public decimal Precio { get; set; }
         public string Observacion { get; set; }
+        public int Solicitudes_Id_Ssolisitud { get; set; }
     
         public virtual Solicitudes Solicitudes { get; set; }
+        public virtual Servis Servis { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace ServiEnCasa_v01.Controllers
     public class UsuariosController : Controller
     {
         private ModeloContainer db = new ModeloContainer();
+        ControlController cc = new ControlController();
         
         // GET: Usuarios
         public ActionResult Index()
@@ -39,10 +40,12 @@ namespace ServiEnCasa_v01.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var usuario = new Usuarios { Nombre = vmUsuario.nombre, Apellido = vmUsuario.apellido, Email = vmUsuario.mail, Pass = Encriptar(vmUsuario.pass), Telefono=vmUsuario.telefono};
-                    if (ValidarEmail(usuario.Email.ToString()) == false)
+                    var usuario = new Usuarios { Nombre = vmUsuario.nombre, Apellido = vmUsuario.apellido, Email = vmUsuario.mail, Pass = cc.Encriptar(vmUsuario.pass), Telefono=vmUsuario.telefono};
+                    if (cc.ValidarEmail(usuario.Email.ToString()) == false)
                     {
                         usuario.Activo = true;
+                        Perfiles p = db.Perfiles.Where(x => x.Perfil == "Usuarios").FirstOrDefault();
+                        usuario.Perfiles.Add(p);
                         db.Usuarios.Add(usuario);
                         db.SaveChanges();
                         return RedirectToAction("Index");
@@ -100,29 +103,6 @@ namespace ServiEnCasa_v01.Controllers
             }
         }
 
-        public string Encriptar(string pass)
-        {
-            byte[] passBytes = Encoding.Unicode.GetBytes(pass);
-
-            SHA1 sha = SHA1.Create();
-
-            byte[] hash = sha.ComputeHash(passBytes);
-
-            string hashString = Encoding.Unicode.GetString(hash);
-
-            return hashString;
-        }
-
-        public bool ValidarEmail(string e)
-        {
-            foreach (Usuarios oUsuario in db.Usuarios.ToList())
-            {
-                if (oUsuario.Email.ToUpper() == e.ToUpper())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        
     }
 }

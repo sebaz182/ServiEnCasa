@@ -10,6 +10,8 @@ namespace ServiEnCasa_v01.Controllers
     {
         public ActionResult Index()
         {
+            InicioController i = new InicioController();
+            i.CargaInicial();
             return View();
         }
 
@@ -26,5 +28,6 @@ namespace ServiEnCasa_v01.Controllers
 
             return View();
         }
+
     }
 }

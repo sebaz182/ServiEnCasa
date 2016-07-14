@@ -18,6 +18,7 @@ namespace ServiEnCasa_v01.Models
         public Usuarios()
         {
             this.Solicitudes = new HashSet<Solicitudes>();
+            this.Perfiles = new HashSet<Perfiles>();
         }
     
         public int Id_Usuario { get; set; }
@@ -30,5 +31,7 @@ namespace ServiEnCasa_v01.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitudes> Solicitudes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Perfiles> Perfiles { get; set; }
     }
 }

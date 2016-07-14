@@ -18,18 +18,29 @@ namespace ServiEnCasa_v01.Models
         public Servis()
         {
             this.Profesiones = new HashSet<Profesiones>();
+            this.Presupuestos = new HashSet<Presupuestos>();
+            this.Perfiles = new HashSet<Perfiles>();
+            this.Tareas = new HashSet<Tareas>();
         }
     
         public int Id_Servi { get; set; }
         public string Apellido { get; set; }
         public string Nombre { get; set; }
-        public string Mail { get; set; }
+        public string Email { get; set; }
         public string DNI { get; set; }
         public string Matricula { get; set; }
         public string Pass { get; set; }
         public bool Activo { get; set; }
+        public string Foto { get; set; }
+        public string Telefono { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profesiones> Profesiones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Presupuestos> Presupuestos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Perfiles> Perfiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tareas> Tareas { get; set; }
     }
 }

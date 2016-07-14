@@ -25,11 +25,13 @@ namespace ServiEnCasa_v01.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Servis> Servis { get; set; }
+        public virtual DbSet<Presupuestos> Presupuestos { get; set; }
         public virtual DbSet<Profesiones> Profesiones { get; set; }
+        public virtual DbSet<Servis> Servis { get; set; }
+        public virtual DbSet<Solicitudes> Solicitudes { get; set; }
         public virtual DbSet<Tareas> Tareas { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<Solicitudes> Solicitudes { get; set; }
-        public virtual DbSet<Presupuestos> Presupuestos { get; set; }
+        public virtual DbSet<Administradores> Administradores { get; set; }
+        public virtual DbSet<Perfiles> Perfiles { get; set; }
     }
 }

@@ -1,112 +1,232 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Modelo" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
   <EntityContainer Name="ModeloContainer" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Servis" EntityType="Modelo.Servis" />
+    <EntitySet Name="Presupuestos" EntityType="Modelo.Presupuestos" />
     <EntitySet Name="Profesiones" EntityType="Modelo.Profesiones" />
+    <EntitySet Name="Servis" EntityType="Modelo.Servis" />
+    <EntitySet Name="Solicitudes" EntityType="Modelo.Solicitudes" />
     <EntitySet Name="Tareas" EntityType="Modelo.Tareas" />
     <EntitySet Name="Usuarios" EntityType="Modelo.Usuarios" />
-    <EntitySet Name="Solicitudes" EntityType="Modelo.Solicitudes" />
-    <EntitySet Name="Presupuestos" EntityType="Modelo.Presupuestos" />
-    <AssociationSet Name="SolicitudesPresupuestos" Association="Modelo.SolicitudesPresupuestos">
+    <AssociationSet Name="FK_SolicitudesPresupuestos" Association="Modelo.FK_SolicitudesPresupuestos">
       <End Role="Solicitudes" EntitySet="Solicitudes" />
       <End Role="Presupuestos" EntitySet="Presupuestos" />
     </AssociationSet>
-    <AssociationSet Name="UsuariosSolicitudes" Association="Modelo.UsuariosSolicitudes">
+    <AssociationSet Name="FK_ProfesionesTareas" Association="Modelo.FK_ProfesionesTareas">
+      <End Role="Profesiones" EntitySet="Profesiones" />
+      <End Role="Tareas" EntitySet="Tareas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuariosSolicitudes" Association="Modelo.FK_UsuariosSolicitudes">
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="Solicitudes" EntitySet="Solicitudes" />
     </AssociationSet>
     <AssociationSet Name="ServisProfesiones" Association="Modelo.ServisProfesiones">
+      <End Role="Profesiones" EntitySet="Profesiones" />
       <End Role="Servis" EntitySet="Servis" />
-      <End Role="Profesiones" EntitySet="Profesiones" />
     </AssociationSet>
-    <AssociationSet Name="ProfesionesTareas" Association="Modelo.ProfesionesTareas">
-      <End Role="Profesiones" EntitySet="Profesiones" />
+    <AssociationSet Name="ServisPresupuestos" Association="Modelo.ServisPresupuestos">
+      <End Role="Servis" EntitySet="Servis" />
+      <End Role="Presupuestos" EntitySet="Presupuestos" />
+    </AssociationSet>
+    <AssociationSet Name="TareasSolicitudes" Association="Modelo.TareasSolicitudes">
       <End Role="Tareas" EntitySet="Tareas" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+    <AssociationSet Name="ProfesionesSolicitudes" Association="Modelo.ProfesionesSolicitudes">
+      <End Role="Profesiones" EntitySet="Profesiones" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+    <EntitySet Name="Administradores" EntityType="Modelo.Administradores" />
+    <EntitySet Name="Perfiles" EntityType="Modelo.Perfiles" />
+    <AssociationSet Name="UsuariosPerfiles" Association="Modelo.UsuariosPerfiles">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Perfiles" EntitySet="Perfiles" />
+    </AssociationSet>
+    <AssociationSet Name="AdministradoresPerfiles" Association="Modelo.AdministradoresPerfiles">
+      <End Role="Administradores" EntitySet="Administradores" />
+      <End Role="Perfiles" EntitySet="Perfiles" />
+    </AssociationSet>
+    <AssociationSet Name="ServisPerfiles" Association="Modelo.ServisPerfiles">
+      <End Role="Servis" EntitySet="Servis" />
+      <End Role="Perfiles" EntitySet="Perfiles" />
+    </AssociationSet>
+    <AssociationSet Name="TareasServis" Association="Modelo.TareasServis">
+      <End Role="Tareas" EntitySet="Tareas" />
+      <End Role="Servis" EntitySet="Servis" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Servis">
+  <EntityType Name="Presupuestos">
     <Key>
-      <PropertyRef Name="Id_Servi" />
+      <PropertyRef Name="Id_Presupuesto" />
     </Key>
-    <Property Name="Id_Servi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Apellido" Type="String" Nullable="false" />
-    <Property Name="Nombre" Type="String" Nullable="false" />
-    <Property Name="Mail" Type="String" Nullable="false" />
-    <Property Name="DNI" Type="String" Nullable="false" />
-    <Property Name="Matricula" Type="String" Nullable="false" />
-    <Property Name="Pass" Type="String" Nullable="false" />
-    <Property Name="Activo" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Profesiones" Relationship="Modelo.ServisProfesiones" FromRole="Servis" ToRole="Profesiones" />
+    <Property Name="Id_Presupuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Estado" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Fecha_Vencimiento" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Solicitudes_Id_Ssolisitud" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Solicitudes" Relationship="Modelo.FK_SolicitudesPresupuestos" FromRole="Presupuestos" ToRole="Solicitudes" />
+    <NavigationProperty Name="Servis" Relationship="Modelo.ServisPresupuestos" FromRole="Presupuestos" ToRole="Servis" />
   </EntityType>
   <EntityType Name="Profesiones">
     <Key>
       <PropertyRef Name="Id_Profesion" />
     </Key>
     <Property Name="Id_Profesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Desc_Profesion" Type="String" Nullable="false" />
+    <Property Name="Desc_Profesion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tareas" Relationship="Modelo.FK_ProfesionesTareas" FromRole="Profesiones" ToRole="Tareas" />
     <NavigationProperty Name="Servis" Relationship="Modelo.ServisProfesiones" FromRole="Profesiones" ToRole="Servis" />
-    <NavigationProperty Name="Tareas" Relationship="Modelo.ProfesionesTareas" FromRole="Profesiones" ToRole="Tareas" />
+    <NavigationProperty Name="Solicitudes" Relationship="Modelo.ProfesionesSolicitudes" FromRole="Profesiones" ToRole="Solicitudes" />
   </EntityType>
-  <EntityType Name="Tareas">
+  <EntityType Name="Servis">
     <Key>
-      <PropertyRef Name="Id_Tarea" />
+      <PropertyRef Name="Id_Servi" />
     </Key>
-    <Property Name="Id_Tarea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Desc_Tarea" Type="String" Nullable="false" />
-    <NavigationProperty Name="Profesiones" Relationship="Modelo.ProfesionesTareas" FromRole="Tareas" ToRole="Profesiones" />
-  </EntityType>
-  <EntityType Name="Usuarios">
-    <Key>
-      <PropertyRef Name="Id_Usuario" />
-    </Key>
-    <Property Name="Id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Apellido" Type="String" Nullable="false" />
-    <Property Name="Nombre" Type="String" Nullable="false" />
-    <Property Name="Email" Type="String" Nullable="false" />
-    <Property Name="Telefono" Type="String" Nullable="false" />
-    <Property Name="Pass" Type="String" Nullable="false" />
+    <Property Name="Id_Servi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DNI" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Matricula" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Pass" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Activo" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Solicitudes" Relationship="Modelo.UsuariosSolicitudes" FromRole="Usuarios" ToRole="Solicitudes" />
+    <NavigationProperty Name="Profesiones" Relationship="Modelo.ServisProfesiones" FromRole="Servis" ToRole="Profesiones" />
+    <NavigationProperty Name="Presupuestos" Relationship="Modelo.ServisPresupuestos" FromRole="Servis" ToRole="Presupuestos" />
+    <Property Name="Foto" Type="String" Nullable="false" />
+    <NavigationProperty Name="Perfiles" Relationship="Modelo.ServisPerfiles" FromRole="Servis" ToRole="Perfiles" />
+    <NavigationProperty Name="Tareas" Relationship="Modelo.TareasServis" FromRole="Servis" ToRole="Tareas" />
+    <Property Name="Telefono" Type="String" Nullable="false" />
   </EntityType>
   <EntityType Name="Solicitudes">
     <Key>
       <PropertyRef Name="Id_Ssolisitud" />
     </Key>
     <Property Name="Id_Ssolisitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Estado" Type="String" Nullable="false" />
-    <Property Name="Contador" Type="Int32" Nullable="false" DefaultValue="0" />
-    <Property Name="Foto" Type="String" Nullable="false" />
-    <Property Name="Fecha" Type="DateTime" Nullable="false" />
-    <Property Name="Zona" Type="String" Nullable="false" />
-    <Property Name="Desc_Solicitud" Type="String" Nullable="false" />
-    <NavigationProperty Name="Presupuestos" Relationship="Modelo.SolicitudesPresupuestos" FromRole="Solicitudes" ToRole="Presupuestos" />
-    <NavigationProperty Name="Usuarios" Relationship="Modelo.UsuariosSolicitudes" FromRole="Solicitudes" ToRole="Usuarios" />
+    <Property Name="Estado" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Contador" Type="Int32" Nullable="false" />
+    <Property Name="Foto" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Zona" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Desc_Solicitud" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Usuarios_Id_Usuario" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Presupuestos" Relationship="Modelo.FK_SolicitudesPresupuestos" FromRole="Solicitudes" ToRole="Presupuestos" />
+    <NavigationProperty Name="Usuarios" Relationship="Modelo.FK_UsuariosSolicitudes" FromRole="Solicitudes" ToRole="Usuarios" />
+    <NavigationProperty Name="Tareas" Relationship="Modelo.TareasSolicitudes" FromRole="Solicitudes" ToRole="Tareas" />
+    <NavigationProperty Name="Profesiones" Relationship="Modelo.ProfesionesSolicitudes" FromRole="Solicitudes" ToRole="Profesiones" />
   </EntityType>
-  <EntityType Name="Presupuestos">
+  <EntityType Name="Tareas">
     <Key>
-      <PropertyRef Name="Id_Presupuesto" />
+      <PropertyRef Name="Id_Tarea" />
     </Key>
-    <Property Name="Id_Presupuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Estado" Type="String" Nullable="false" />
-    <Property Name="Fecha_Vencimiento" Type="DateTime" Nullable="false" />
-    <Property Name="Precio" Type="Decimal" Nullable="false" />
-    <Property Name="Observacion" Type="String" Nullable="false" />
-    <NavigationProperty Name="Solicitudes" Relationship="Modelo.SolicitudesPresupuestos" FromRole="Presupuestos" ToRole="Solicitudes" />
+    <Property Name="Id_Tarea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Desc_Tarea" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Profesiones_Id_Profesion" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Profesiones" Relationship="Modelo.FK_ProfesionesTareas" FromRole="Tareas" ToRole="Profesiones" />
+    <NavigationProperty Name="Solicitudes" Relationship="Modelo.TareasSolicitudes" FromRole="Tareas" ToRole="Solicitudes" />
+    <NavigationProperty Name="Servis" Relationship="Modelo.TareasServis" FromRole="Tareas" ToRole="Servis" />
   </EntityType>
-  <Association Name="SolicitudesPresupuestos">
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id_Usuario" />
+    </Key>
+    <Property Name="Id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Pass" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Solicitudes" Relationship="Modelo.FK_UsuariosSolicitudes" FromRole="Usuarios" ToRole="Solicitudes" />
+    <NavigationProperty Name="Perfiles" Relationship="Modelo.UsuariosPerfiles" FromRole="Usuarios" ToRole="Perfiles" />
+  </EntityType>
+  <Association Name="FK_SolicitudesPresupuestos">
     <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="1" />
     <End Type="Modelo.Presupuestos" Role="Presupuestos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitudes">
+        <PropertyRef Name="Id_Ssolisitud" />
+      </Principal>
+      <Dependent Role="Presupuestos">
+        <PropertyRef Name="Solicitudes_Id_Ssolisitud" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
-  <Association Name="UsuariosSolicitudes">
-    <End Type="Modelo.Usuarios" Role="Usuarios" Multiplicity="1" />
-    <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
-  </Association>
-  <Association Name="ServisProfesiones">
-    <End Type="Modelo.Servis" Role="Servis" Multiplicity="*" />
-    <End Type="Modelo.Profesiones" Role="Profesiones" Multiplicity="*" />
-  </Association>
-  <Association Name="ProfesionesTareas">
+  <Association Name="FK_ProfesionesTareas">
     <End Type="Modelo.Profesiones" Role="Profesiones" Multiplicity="1" />
     <End Type="Modelo.Tareas" Role="Tareas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesiones">
+        <PropertyRef Name="Id_Profesion" />
+      </Principal>
+      <Dependent Role="Tareas">
+        <PropertyRef Name="Profesiones_Id_Profesion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuariosSolicitudes">
+    <End Type="Modelo.Usuarios" Role="Usuarios" Multiplicity="1" />
+    <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Id_Usuario" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="Usuarios_Id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServisProfesiones">
+    <End Type="Modelo.Profesiones" Role="Profesiones" Multiplicity="*" />
+    <End Type="Modelo.Servis" Role="Servis" Multiplicity="*" />
+  </Association>
+  <Association Name="ServisPresupuestos">
+    <End Type="Modelo.Servis" Role="Servis" Multiplicity="1" />
+    <End Type="Modelo.Presupuestos" Role="Presupuestos" Multiplicity="*" />
+  </Association>
+  <Association Name="TareasSolicitudes">
+    <End Type="Modelo.Tareas" Role="Tareas" Multiplicity="1" />
+    <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+  </Association>
+  <Association Name="ProfesionesSolicitudes">
+    <End Type="Modelo.Profesiones" Role="Profesiones" Multiplicity="1" />
+    <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Administradores">
+    <Key>
+      <PropertyRef Name="Id_Administrador" />
+    </Key>
+    <Property Name="Id_Administrador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <Property Name="Pass" Type="String" Nullable="false" />
+    <NavigationProperty Name="Perfiles" Relationship="Modelo.AdministradoresPerfiles" FromRole="Administradores" ToRole="Perfiles" />
+  </EntityType>
+  <EntityType Name="Perfiles">
+    <Key>
+      <PropertyRef Name="Id_Perfil" />
+    </Key>
+    <Property Name="Id_Perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Perfil" Type="String" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="Modelo.UsuariosPerfiles" FromRole="Perfiles" ToRole="Usuarios" />
+    <NavigationProperty Name="Administradores" Relationship="Modelo.AdministradoresPerfiles" FromRole="Perfiles" ToRole="Administradores" />
+    <NavigationProperty Name="Servis" Relationship="Modelo.ServisPerfiles" FromRole="Perfiles" ToRole="Servis" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="UsuariosPerfiles">
+    <End Type="Modelo.Usuarios" Role="Usuarios" Multiplicity="*" />
+    <End Type="Modelo.Perfiles" Role="Perfiles" Multiplicity="*" />
+  </Association>
+  <Association Name="AdministradoresPerfiles">
+    <End Type="Modelo.Administradores" Role="Administradores" Multiplicity="*" />
+    <End Type="Modelo.Perfiles" Role="Perfiles" Multiplicity="*" />
+  </Association>
+  <Association Name="ServisPerfiles">
+    <End Type="Modelo.Servis" Role="Servis" Multiplicity="*" />
+    <End Type="Modelo.Perfiles" Role="Perfiles" Multiplicity="*" />
+  </Association>
+  <Association Name="TareasServis">
+    <End Type="Modelo.Tareas" Role="Tareas" Multiplicity="*" />
+    <End Type="Modelo.Servis" Role="Servis" Multiplicity="*" />
   </Association>
 </Schema>

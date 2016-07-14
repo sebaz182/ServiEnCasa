@@ -26,6 +26,18 @@ namespace ServiEnCasa_v01
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminPanelJs").Include(
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/jquery.dcjqaccordion.2.7.js",
+                      "~/Scripts/SeguridadDashboard.js"));
+
+            bundles.Add(new StyleBundle("~/Content/adminPanel").Include(
+                 "~/Content/font-awesome/css/font-awesome.css",
+                 "~/Content/bootstrap.css",
+                  "~/Content/SeguridadDashboard.css",
+                   "~/Content/SeguridadResponsiveDash.css"));
+
         }
     }
 }

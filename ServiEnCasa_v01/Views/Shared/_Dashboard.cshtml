@@ -10,8 +10,10 @@
                 @*@if (Request.IsAuthenticated && User.IsInRole("Admin"))*@
                 @*{*@
                     <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
+                    <li>@Html.ActionLink("Servis", "Index", "Servis")</li>
                     <li>@Html.ActionLink("Profesiones", "Index", "Profesiones")</li>
                     <li>@Html.ActionLink("Tareas", "Index", "Tareas")</li>
+                    <li>@Html.ActionLink("Administradores", "Index", "Admin")</li>
                 @*}*@
             </ul>
         </li>
