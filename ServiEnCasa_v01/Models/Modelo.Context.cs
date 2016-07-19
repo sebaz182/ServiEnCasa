@@ -33,5 +33,7 @@ namespace ServiEnCasa_v01.Models
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Administradores> Administradores { get; set; }
         public virtual DbSet<Perfiles> Perfiles { get; set; }
+        public virtual DbSet<Zonas> Zonas { get; set; }
+        public virtual DbSet<Horarios> Horarios { get; set; }
     }
 }

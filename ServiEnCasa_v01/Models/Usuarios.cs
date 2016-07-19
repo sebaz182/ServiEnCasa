@@ -17,8 +17,8 @@ namespace ServiEnCasa_v01.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
         {
-            this.Solicitudes = new HashSet<Solicitudes>();
             this.Perfiles = new HashSet<Perfiles>();
+            this.Solicitudes = new HashSet<Solicitudes>();
         }
     
         public int Id_Usuario { get; set; }
@@ -30,8 +30,8 @@ namespace ServiEnCasa_v01.Models
         public bool Activo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Solicitudes> Solicitudes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Perfiles> Perfiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Solicitudes> Solicitudes { get; set; }
     }
 }

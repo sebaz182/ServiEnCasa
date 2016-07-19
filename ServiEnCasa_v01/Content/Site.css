@@ -1,24 +1,66 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*	################################################################
+	Header Busqueda
+################################################################# */
+
+header {
+	position: relative;
+	width: 100%;
+    background-color: #e47365;
+	background: rgba(28, 36, 65, 0.93);
+	background: url('../Content/img/header_presupuesto.jpg');
+	background-size: cover;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+header .container {
+	height: 100%;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.container {
+	position: relative;
+	z-index: 1;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+header .table {
+	display: table;
+	height: 100%;
+}
+
+
+#main-slider {
+  position: relative;
+  margin-top: 50px;
+  width: 100%;
+  display: block !important;
+  height: 563px;
+  -webkit-transition: opacity ease-in-out 500ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 500ms;
+
+}
+
+#main-slider h1 {
+	margin-bottom: 25px;
+	text-align: center;
+    min-height: 0px;
+	padding-top: 100px;
+}
+
+#mensaje-busqueda .empty-message {
+    color: #444444;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+#scrollable-dropdown-menu .tt-dropdown-menu {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/*	################################################################
+	Fin Header Busqueda
+################################################################# */
+
+#indexservi {
+   background-color: rgba(245, 245, 245, 0.8) !important;
 }

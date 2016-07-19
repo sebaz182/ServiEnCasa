@@ -146,14 +146,20 @@
     <Compile Include="Controllers\ControlController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\PresupuestosController.cs" />
     <Compile Include="Controllers\ProfesionesController.cs" />
     <Compile Include="Controllers\ServisController.cs" />
+    <Compile Include="Controllers\SolicitudesController.cs" />
     <Compile Include="Controllers\TareasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\ZonasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Administradores.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Horarios.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Modelo.Context.cs">
@@ -193,13 +199,22 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="Models\Zonas.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\electricista.jpg" />
+    <Content Include="Content\img\electricista2.jpg" />
+    <Content Include="Content\img\header_presupuesto.jpg" />
+    <Content Include="Content\img\plomero.jpg" />
+    <Content Include="Content\img\sinFoto.png" />
     <Content Include="Content\SeguridadDashboard.css" />
     <Content Include="Content\SeguridadResponsiveDash.css" />
+    <Content Include="Content\typeaheadjs.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -224,7 +239,18 @@
     <Content Include="Models\Modelo.edmx.diagram">
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <Content Include="Content\font-awesome\desktop.ini" />
+    <Content Include="Content\_bootstrap-datetimepicker.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\handlebars.amd.js" />
+    <Content Include="Scripts\handlebars.amd.min.js" />
+    <Content Include="Scripts\handlebars.js" />
+    <Content Include="Scripts\handlebars.min.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.min.js" />
+    <Content Include="Scripts\handlebars.runtime.js" />
+    <Content Include="Scripts\handlebars.runtime.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -237,6 +263,10 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\SeguridadDashboard.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -270,10 +300,19 @@
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Servis\Index.cshtml" />
     <Content Include="Views\Servis\Create.cshtml" />
+    <Content Include="Views\Zonas\Index.cshtml" />
+    <Content Include="Views\Zonas\Create.cshtml" />
+    <Content Include="Views\Zonas\Edit.cshtml" />
+    <Content Include="Views\Zonas\Delete.cshtml" />
+    <Content Include="Views\Solicitudes\MisSolicitudes.cshtml" />
+    <Content Include="Views\Home\_SolicitudPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutHomeSC.cshtml" />
+    <Content Include="Views\Presupuestos\PresupuestosSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\font-awesome\" />
+    <Folder Include="Content\bootstrap\" />
+    <Folder Include="Content\fonts\" />
     <Folder Include="Views\Control\" />
     <Folder Include="Views\Inicio\" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/11/2016 23:34:25
+-- Date Created: 07/17/2016 17:16:49
 -- Generated from EDMX file: C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\Models\Modelo.edmx
 -- --------------------------------------------------
 
@@ -17,23 +17,17 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_SolicitudesPresupuestos]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Presupuestos] DROP CONSTRAINT [FK_SolicitudesPresupuestos];
-GO
-IF OBJECT_ID(N'[dbo].[FK_ProfesionesTareas]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Tareas] DROP CONSTRAINT [FK_ProfesionesTareas];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UsuariosSolicitudes]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Solicitudes] DROP CONSTRAINT [FK_UsuariosSolicitudes];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ServisProfesiones_Profesiones]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ServisProfesiones] DROP CONSTRAINT [FK_ServisProfesiones_Profesiones];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ServisProfesiones_Servis]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ServisProfesiones] DROP CONSTRAINT [FK_ServisProfesiones_Servis];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ServisPresupuestos]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Presupuestos] DROP CONSTRAINT [FK_ServisPresupuestos];
+IF OBJECT_ID(N'[dbo].[FK_ServisPresupuestos_Servis]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ServisPresupuestos] DROP CONSTRAINT [FK_ServisPresupuestos_Servis];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ServisPresupuestos_Presupuestos]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ServisPresupuestos] DROP CONSTRAINT [FK_ServisPresupuestos_Presupuestos];
 GO
 IF OBJECT_ID(N'[dbo].[FK_TareasSolicitudes]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Solicitudes] DROP CONSTRAINT [FK_TareasSolicitudes];
@@ -65,6 +59,21 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_TareasServis_Servis]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TareasServis] DROP CONSTRAINT [FK_TareasServis_Servis];
 GO
+IF OBJECT_ID(N'[dbo].[FK_SolicitudesPresupuestos]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Presupuestos] DROP CONSTRAINT [FK_SolicitudesPresupuestos];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ZonasSolicitudes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Solicitudes] DROP CONSTRAINT [FK_ZonasSolicitudes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UsuariosSolicitudes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Solicitudes] DROP CONSTRAINT [FK_UsuariosSolicitudes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProfesionesTareas]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Tareas] DROP CONSTRAINT [FK_ProfesionesTareas];
+GO
+IF OBJECT_ID(N'[dbo].[FK_HorariosSolicitudes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Solicitudes] DROP CONSTRAINT [FK_HorariosSolicitudes];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -94,8 +103,17 @@ GO
 IF OBJECT_ID(N'[dbo].[Perfiles]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Perfiles];
 GO
+IF OBJECT_ID(N'[dbo].[Zonas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Zonas];
+GO
+IF OBJECT_ID(N'[dbo].[Horarios]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Horarios];
+GO
 IF OBJECT_ID(N'[dbo].[ServisProfesiones]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ServisProfesiones];
+GO
+IF OBJECT_ID(N'[dbo].[ServisPresupuestos]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ServisPresupuestos];
 GO
 IF OBJECT_ID(N'[dbo].[UsuariosPerfiles]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UsuariosPerfiles];
@@ -121,8 +139,7 @@ CREATE TABLE [dbo].[Presupuestos] (
     [Fecha_Vencimiento] datetime  NOT NULL,
     [Precio] decimal(18,0)  NOT NULL,
     [Observacion] nvarchar(max)  NOT NULL,
-    [Solicitudes_Id_Ssolisitud] int  NOT NULL,
-    [Servis_Id_Servi] int  NOT NULL
+    [Solicitudes_Id_Solicitud] int  NOT NULL
 );
 GO
 
@@ -150,16 +167,17 @@ GO
 
 -- Creating table 'Solicitudes'
 CREATE TABLE [dbo].[Solicitudes] (
-    [Id_Ssolisitud] int IDENTITY(1,1) NOT NULL,
+    [Id_Solicitud] int IDENTITY(1,1) NOT NULL,
     [Estado] nvarchar(max)  NOT NULL,
     [Contador] int  NOT NULL,
-    [Foto] nvarchar(max)  NOT NULL,
+    [Foto] nvarchar(max)  NULL,
     [Fecha] datetime  NOT NULL,
-    [Zona] nvarchar(max)  NOT NULL,
     [Desc_Solicitud] nvarchar(max)  NOT NULL,
-    [Usuarios_Id_Usuario] int  NOT NULL,
     [Tareas_Id_Tarea] int  NOT NULL,
-    [Profesiones_Id_Profesion] int  NOT NULL
+    [Profesiones_Id_Profesion] int  NOT NULL,
+    [Zonas_Id_Zona] int  NOT NULL,
+    [Usuarios_Id_Usuario] int  NOT NULL,
+    [Horarios_Id_Horario] int  NOT NULL
 );
 GO
 
@@ -202,10 +220,31 @@ CREATE TABLE [dbo].[Perfiles] (
 );
 GO
 
+-- Creating table 'Zonas'
+CREATE TABLE [dbo].[Zonas] (
+    [Id_Zona] int IDENTITY(1,1) NOT NULL,
+    [Zona] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Horarios'
+CREATE TABLE [dbo].[Horarios] (
+    [Id_Horario] int IDENTITY(1,1) NOT NULL,
+    [Horario] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'ServisProfesiones'
 CREATE TABLE [dbo].[ServisProfesiones] (
     [Profesiones_Id_Profesion] int  NOT NULL,
     [Servis_Id_Servi] int  NOT NULL
+);
+GO
+
+-- Creating table 'ServisPresupuestos'
+CREATE TABLE [dbo].[ServisPresupuestos] (
+    [Servis_Id_Servi] int  NOT NULL,
+    [Presupuestos_Id_Presupuesto] int  NOT NULL
 );
 GO
 
@@ -259,10 +298,10 @@ ADD CONSTRAINT [PK_Servis]
     PRIMARY KEY CLUSTERED ([Id_Servi] ASC);
 GO
 
--- Creating primary key on [Id_Ssolisitud] in table 'Solicitudes'
+-- Creating primary key on [Id_Solicitud] in table 'Solicitudes'
 ALTER TABLE [dbo].[Solicitudes]
 ADD CONSTRAINT [PK_Solicitudes]
-    PRIMARY KEY CLUSTERED ([Id_Ssolisitud] ASC);
+    PRIMARY KEY CLUSTERED ([Id_Solicitud] ASC);
 GO
 
 -- Creating primary key on [Id_Tarea] in table 'Tareas'
@@ -289,10 +328,28 @@ ADD CONSTRAINT [PK_Perfiles]
     PRIMARY KEY CLUSTERED ([Id_Perfil] ASC);
 GO
 
+-- Creating primary key on [Id_Zona] in table 'Zonas'
+ALTER TABLE [dbo].[Zonas]
+ADD CONSTRAINT [PK_Zonas]
+    PRIMARY KEY CLUSTERED ([Id_Zona] ASC);
+GO
+
+-- Creating primary key on [Id_Horario] in table 'Horarios'
+ALTER TABLE [dbo].[Horarios]
+ADD CONSTRAINT [PK_Horarios]
+    PRIMARY KEY CLUSTERED ([Id_Horario] ASC);
+GO
+
 -- Creating primary key on [Profesiones_Id_Profesion], [Servis_Id_Servi] in table 'ServisProfesiones'
 ALTER TABLE [dbo].[ServisProfesiones]
 ADD CONSTRAINT [PK_ServisProfesiones]
     PRIMARY KEY CLUSTERED ([Profesiones_Id_Profesion], [Servis_Id_Servi] ASC);
+GO
+
+-- Creating primary key on [Servis_Id_Servi], [Presupuestos_Id_Presupuesto] in table 'ServisPresupuestos'
+ALTER TABLE [dbo].[ServisPresupuestos]
+ADD CONSTRAINT [PK_ServisPresupuestos]
+    PRIMARY KEY CLUSTERED ([Servis_Id_Servi], [Presupuestos_Id_Presupuesto] ASC);
 GO
 
 -- Creating primary key on [Usuarios_Id_Usuario], [Perfiles_Id_Perfil] in table 'UsuariosPerfiles'
@@ -323,51 +380,6 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [Solicitudes_Id_Ssolisitud] in table 'Presupuestos'
-ALTER TABLE [dbo].[Presupuestos]
-ADD CONSTRAINT [FK_SolicitudesPresupuestos]
-    FOREIGN KEY ([Solicitudes_Id_Ssolisitud])
-    REFERENCES [dbo].[Solicitudes]
-        ([Id_Ssolisitud])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudesPresupuestos'
-CREATE INDEX [IX_FK_SolicitudesPresupuestos]
-ON [dbo].[Presupuestos]
-    ([Solicitudes_Id_Ssolisitud]);
-GO
-
--- Creating foreign key on [Profesiones_Id_Profesion] in table 'Tareas'
-ALTER TABLE [dbo].[Tareas]
-ADD CONSTRAINT [FK_ProfesionesTareas]
-    FOREIGN KEY ([Profesiones_Id_Profesion])
-    REFERENCES [dbo].[Profesiones]
-        ([Id_Profesion])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProfesionesTareas'
-CREATE INDEX [IX_FK_ProfesionesTareas]
-ON [dbo].[Tareas]
-    ([Profesiones_Id_Profesion]);
-GO
-
--- Creating foreign key on [Usuarios_Id_Usuario] in table 'Solicitudes'
-ALTER TABLE [dbo].[Solicitudes]
-ADD CONSTRAINT [FK_UsuariosSolicitudes]
-    FOREIGN KEY ([Usuarios_Id_Usuario])
-    REFERENCES [dbo].[Usuarios]
-        ([Id_Usuario])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UsuariosSolicitudes'
-CREATE INDEX [IX_FK_UsuariosSolicitudes]
-ON [dbo].[Solicitudes]
-    ([Usuarios_Id_Usuario]);
-GO
-
 -- Creating foreign key on [Profesiones_Id_Profesion] in table 'ServisProfesiones'
 ALTER TABLE [dbo].[ServisProfesiones]
 ADD CONSTRAINT [FK_ServisProfesiones_Profesiones]
@@ -392,19 +404,28 @@ ON [dbo].[ServisProfesiones]
     ([Servis_Id_Servi]);
 GO
 
--- Creating foreign key on [Servis_Id_Servi] in table 'Presupuestos'
-ALTER TABLE [dbo].[Presupuestos]
-ADD CONSTRAINT [FK_ServisPresupuestos]
+-- Creating foreign key on [Servis_Id_Servi] in table 'ServisPresupuestos'
+ALTER TABLE [dbo].[ServisPresupuestos]
+ADD CONSTRAINT [FK_ServisPresupuestos_Servis]
     FOREIGN KEY ([Servis_Id_Servi])
     REFERENCES [dbo].[Servis]
         ([Id_Servi])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_ServisPresupuestos'
-CREATE INDEX [IX_FK_ServisPresupuestos]
-ON [dbo].[Presupuestos]
-    ([Servis_Id_Servi]);
+-- Creating foreign key on [Presupuestos_Id_Presupuesto] in table 'ServisPresupuestos'
+ALTER TABLE [dbo].[ServisPresupuestos]
+ADD CONSTRAINT [FK_ServisPresupuestos_Presupuestos]
+    FOREIGN KEY ([Presupuestos_Id_Presupuesto])
+    REFERENCES [dbo].[Presupuestos]
+        ([Id_Presupuesto])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ServisPresupuestos_Presupuestos'
+CREATE INDEX [IX_FK_ServisPresupuestos_Presupuestos]
+ON [dbo].[ServisPresupuestos]
+    ([Presupuestos_Id_Presupuesto]);
 GO
 
 -- Creating foreign key on [Tareas_Id_Tarea] in table 'Solicitudes'
@@ -531,6 +552,81 @@ GO
 CREATE INDEX [IX_FK_TareasServis_Servis]
 ON [dbo].[TareasServis]
     ([Servis_Id_Servi]);
+GO
+
+-- Creating foreign key on [Solicitudes_Id_Solicitud] in table 'Presupuestos'
+ALTER TABLE [dbo].[Presupuestos]
+ADD CONSTRAINT [FK_SolicitudesPresupuestos]
+    FOREIGN KEY ([Solicitudes_Id_Solicitud])
+    REFERENCES [dbo].[Solicitudes]
+        ([Id_Solicitud])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SolicitudesPresupuestos'
+CREATE INDEX [IX_FK_SolicitudesPresupuestos]
+ON [dbo].[Presupuestos]
+    ([Solicitudes_Id_Solicitud]);
+GO
+
+-- Creating foreign key on [Zonas_Id_Zona] in table 'Solicitudes'
+ALTER TABLE [dbo].[Solicitudes]
+ADD CONSTRAINT [FK_ZonasSolicitudes]
+    FOREIGN KEY ([Zonas_Id_Zona])
+    REFERENCES [dbo].[Zonas]
+        ([Id_Zona])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ZonasSolicitudes'
+CREATE INDEX [IX_FK_ZonasSolicitudes]
+ON [dbo].[Solicitudes]
+    ([Zonas_Id_Zona]);
+GO
+
+-- Creating foreign key on [Usuarios_Id_Usuario] in table 'Solicitudes'
+ALTER TABLE [dbo].[Solicitudes]
+ADD CONSTRAINT [FK_UsuariosSolicitudes]
+    FOREIGN KEY ([Usuarios_Id_Usuario])
+    REFERENCES [dbo].[Usuarios]
+        ([Id_Usuario])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UsuariosSolicitudes'
+CREATE INDEX [IX_FK_UsuariosSolicitudes]
+ON [dbo].[Solicitudes]
+    ([Usuarios_Id_Usuario]);
+GO
+
+-- Creating foreign key on [Profesiones_Id_Profesion] in table 'Tareas'
+ALTER TABLE [dbo].[Tareas]
+ADD CONSTRAINT [FK_ProfesionesTareas]
+    FOREIGN KEY ([Profesiones_Id_Profesion])
+    REFERENCES [dbo].[Profesiones]
+        ([Id_Profesion])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProfesionesTareas'
+CREATE INDEX [IX_FK_ProfesionesTareas]
+ON [dbo].[Tareas]
+    ([Profesiones_Id_Profesion]);
+GO
+
+-- Creating foreign key on [Horarios_Id_Horario] in table 'Solicitudes'
+ALTER TABLE [dbo].[Solicitudes]
+ADD CONSTRAINT [FK_HorariosSolicitudes]
+    FOREIGN KEY ([Horarios_Id_Horario])
+    REFERENCES [dbo].[Horarios]
+        ([Id_Horario])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_HorariosSolicitudes'
+CREATE INDEX [IX_FK_HorariosSolicitudes]
+ON [dbo].[Solicitudes]
+    ([Horarios_Id_Horario]);
 GO
 
 -- --------------------------------------------------

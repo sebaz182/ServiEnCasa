@@ -4,26 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3fcb7c175c0a4c578bc83a51bdecc015" Name="Diagram1" ZoomLevel="70" >
+      <Diagram DiagramId="3fcb7c175c0a4c578bc83a51bdecc015" Name="Diagram1" ZoomLevel="64" >
         <EntityTypeShape EntityType="Modelo.Presupuestos" Width="1.5" PointX="10.375" PointY="8.25" />
-        <EntityTypeShape EntityType="Modelo.Profesiones" Width="1.5" PointX="7.75" PointY="5.875" />
+        <EntityTypeShape EntityType="Modelo.Profesiones" Width="1.5" PointX="7.875" PointY="5.5" />
         <EntityTypeShape EntityType="Modelo.Servis" Width="1.5" PointX="10.375" PointY="3.875" />
         <EntityTypeShape EntityType="Modelo.Solicitudes" Width="1.5" PointX="5.375" PointY="7.25" />
         <EntityTypeShape EntityType="Modelo.Tareas" Width="1.5" PointX="4.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Modelo.Usuarios" Width="1.5" PointX="1.25" PointY="3.375" />
-        <AssociationConnector Association="Modelo.FK_SolicitudesPresupuestos" />
-        <AssociationConnector Association="Modelo.FK_ProfesionesTareas" />
-        <AssociationConnector Association="Modelo.FK_UsuariosSolicitudes" />
         <AssociationConnector Association="Modelo.ServisProfesiones" />
         <AssociationConnector Association="Modelo.ServisPresupuestos" />
         <AssociationConnector Association="Modelo.TareasSolicitudes" />
         <AssociationConnector Association="Modelo.ProfesionesSolicitudes" />
-        <EntityTypeShape EntityType="Modelo.Administradores" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="Modelo.Administradores" Width="1.5" PointX="1.375" PointY="0.5" />
         <EntityTypeShape EntityType="Modelo.Perfiles" Width="1.5" PointX="5.25" PointY="0.625" />
         <AssociationConnector Association="Modelo.UsuariosPerfiles" />
         <AssociationConnector Association="Modelo.AdministradoresPerfiles" />
         <AssociationConnector Association="Modelo.ServisPerfiles" />
         <AssociationConnector Association="Modelo.TareasServis" />
+        <EntityTypeShape EntityType="Modelo.Zonas" Width="1.5" PointX="3" PointY="9" />
+        <AssociationConnector Association="Modelo.SolicitudesPresupuestos" />
+        <AssociationConnector Association="Modelo.ZonasSolicitudes" />
+        <AssociationConnector Association="Modelo.UsuariosSolicitudes" />
+        <AssociationConnector Association="Modelo.ProfesionesTareas" />
+        <EntityTypeShape EntityType="Modelo.Horarios" Width="1.5" PointX="5.25" PointY="11.75" />
+        <AssociationConnector Association="Modelo.HorariosSolicitudes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

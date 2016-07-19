@@ -9,7 +9,6 @@
           <ScalarProperty Name="Fecha_Vencimiento" ColumnName="Fecha_Vencimiento" />
           <ScalarProperty Name="Precio" ColumnName="Precio" />
           <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-          <ScalarProperty Name="Solicitudes_Id_Ssolisitud" ColumnName="Solicitudes_Id_Ssolisitud" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -40,14 +39,12 @@
     <EntitySetMapping Name="Solicitudes">
       <EntityTypeMapping TypeName="IsTypeOf(Modelo.Solicitudes)">
         <MappingFragment StoreEntitySet="Solicitudes">
-          <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+          <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Contador" ColumnName="Contador" />
           <ScalarProperty Name="Foto" ColumnName="Foto" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Zona" ColumnName="Zona" />
           <ScalarProperty Name="Desc_Solicitud" ColumnName="Desc_Solicitud" />
-          <ScalarProperty Name="Usuarios_Id_Usuario" ColumnName="Usuarios_Id_Usuario" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -56,7 +53,6 @@
         <MappingFragment StoreEntitySet="Tareas">
           <ScalarProperty Name="Id_Tarea" ColumnName="Id_Tarea" />
           <ScalarProperty Name="Desc_Tarea" ColumnName="Desc_Tarea" />
-          <ScalarProperty Name="Profesiones_Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -94,6 +90,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Zonas">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Zonas)">
+        <MappingFragment StoreEntitySet="Zonas">
+          <ScalarProperty Name="Id_Zona" ColumnName="Id_Zona" />
+          <ScalarProperty Name="Zona" ColumnName="Zona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Horarios">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Horarios)">
+        <MappingFragment StoreEntitySet="Horarios">
+          <ScalarProperty Name="Id_Horario" ColumnName="Id_Horario" />
+          <ScalarProperty Name="Horario" ColumnName="Horario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="ServisProfesiones" TypeName="Modelo.ServisProfesiones" StoreEntitySet="ServisProfesiones">
       <EndProperty Name="Profesiones">
         <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
@@ -102,12 +114,12 @@
         <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ServisPresupuestos" TypeName="Modelo.ServisPresupuestos" StoreEntitySet="Presupuestos">
+    <AssociationSetMapping Name="ServisPresupuestos" TypeName="Modelo.ServisPresupuestos" StoreEntitySet="ServisPresupuestos">
       <EndProperty Name="Servis">
         <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
       </EndProperty>
       <EndProperty Name="Presupuestos">
-        <ScalarProperty Name="Id_Presupuesto" ColumnName="Id_Presupuesto" />
+        <ScalarProperty Name="Id_Presupuesto" ColumnName="Presupuestos_Id_Presupuesto" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="TareasSolicitudes" TypeName="Modelo.TareasSolicitudes" StoreEntitySet="Solicitudes">
@@ -115,7 +127,7 @@
         <ScalarProperty Name="Id_Tarea" ColumnName="Tareas_Id_Tarea" />
       </EndProperty>
       <EndProperty Name="Solicitudes">
-        <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="ProfesionesSolicitudes" TypeName="Modelo.ProfesionesSolicitudes" StoreEntitySet="Solicitudes">
@@ -123,7 +135,7 @@
         <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
       </EndProperty>
       <EndProperty Name="Solicitudes">
-        <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="UsuariosPerfiles" TypeName="Modelo.UsuariosPerfiles" StoreEntitySet="UsuariosPerfiles">
@@ -156,6 +168,46 @@
       </EndProperty>
       <EndProperty Name="Servis">
         <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SolicitudesPresupuestos" TypeName="Modelo.SolicitudesPresupuestos" StoreEntitySet="Presupuestos">
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Solicitudes_Id_Solicitud" />
+      </EndProperty>
+      <EndProperty Name="Presupuestos">
+        <ScalarProperty Name="Id_Presupuesto" ColumnName="Id_Presupuesto" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ZonasSolicitudes" TypeName="Modelo.ZonasSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Zonas">
+        <ScalarProperty Name="Id_Zona" ColumnName="Zonas_Id_Zona" />
+      </EndProperty>
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsuariosSolicitudes" TypeName="Modelo.UsuariosSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Usuarios">
+        <ScalarProperty Name="Id_Usuario" ColumnName="Usuarios_Id_Usuario" />
+      </EndProperty>
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProfesionesTareas" TypeName="Modelo.ProfesionesTareas" StoreEntitySet="Tareas">
+      <EndProperty Name="Profesiones">
+        <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
+      </EndProperty>
+      <EndProperty Name="Tareas">
+        <ScalarProperty Name="Id_Tarea" ColumnName="Id_Tarea" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="HorariosSolicitudes" TypeName="Modelo.HorariosSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Horarios">
+        <ScalarProperty Name="Id_Horario" ColumnName="Horarios_Id_Horario" />
+      </EndProperty>
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

@@ -14,14 +14,20 @@ namespace ServiEnCasa_v01.Models
     
     public partial class Presupuestos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Presupuestos()
+        {
+            this.Servis = new HashSet<Servis>();
+        }
+    
         public int Id_Presupuesto { get; set; }
         public string Estado { get; set; }
         public System.DateTime Fecha_Vencimiento { get; set; }
         public decimal Precio { get; set; }
         public string Observacion { get; set; }
-        public int Solicitudes_Id_Ssolisitud { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Servis> Servis { get; set; }
         public virtual Solicitudes Solicitudes { get; set; }
-        public virtual Servis Servis { get; set; }
     }
 }

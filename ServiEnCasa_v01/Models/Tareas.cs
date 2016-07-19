@@ -23,12 +23,11 @@ namespace ServiEnCasa_v01.Models
     
         public int Id_Tarea { get; set; }
         public string Desc_Tarea { get; set; }
-        public int Profesiones_Id_Profesion { get; set; }
     
-        public virtual Profesiones Profesiones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitudes> Solicitudes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servis> Servis { get; set; }
+        public virtual Profesiones Profesiones { get; set; }
     }
 }

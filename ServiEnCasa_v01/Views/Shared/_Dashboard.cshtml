@@ -14,20 +14,21 @@
                     <li>@Html.ActionLink("Profesiones", "Index", "Profesiones")</li>
                     <li>@Html.ActionLink("Tareas", "Index", "Tareas")</li>
                     <li>@Html.ActionLink("Administradores", "Index", "Admin")</li>
+                    <li>@Html.ActionLink("Zonas", "Index", "Zonas")</li>
                 @*}*@
             </ul>
         </li>
         <li class="sub-menu">
             <a href="javascript:;">
                 <i class="fa fa-suitcase"></i>
-                <span>Viajes</span>
+                <span>Usuario</span>
             </a>
             <ul class="sub">
-                @if (Request.IsAuthenticated && User.IsInRole("Reservas"))
-                {
-                    <li>@Html.ActionLink("Pasajes", "Index", "Pasajes")</li>
+                @*@if (Request.IsAuthenticated && User.IsInRole("Reservas"))*@
+                @*{*@
+                    <li>@Html.ActionLink("Mis Solicitudes", "MisSolicitudes", "Solicitudes")</li>
                     <li>@Html.ActionLink("Hoteles", "Index", "Hoteles")</li>
-                }
+                @*}*@
             </ul>
         </li>
         <li class="sub-menu">

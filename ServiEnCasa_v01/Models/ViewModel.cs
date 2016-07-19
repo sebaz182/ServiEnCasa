@@ -163,7 +163,45 @@ namespace ServiEnCasa_v01.Models
         //[Required]
         [Display(Name = "Tarea")]
         public ICollection<Tareas> Tareas { get; set; }
-        
     }
-    
+
+    public class ZonasViewModel
+    {
+        public int id { get; set; }
+
+        [Required]
+        [Display(Name = "Zona")]
+        public string zona { get; set; }
+    }
+
+
+    public class SolicitudViewModel
+    {
+
+        [Required]
+        [Display(Name = "Profesión")]
+        public int ProfesionId { get; set; }
+
+        [Required]
+        [Display(Name = "Tareas")]
+        public int TareaId { get; set; }
+        
+        public string Foto { get; set; }
+
+        [Required]
+        [Display(Name = "Descripcion Servicio")]
+        public string DescripcionServicio { get; set; }
+
+        [Required]
+        [Display(Name = "Fecha")]
+        public DateTime FechaInicio { get; set; }
+
+        [Required]
+        [Display(Name = "Horario")]
+        public int idHora { get; set; }
+
+        [Required]
+        [Display(Name = "Zona")]
+        public string Zona { get; set; }
+    }
 }

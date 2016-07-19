@@ -14,23 +14,14 @@
     <EntitySet Name="Usuarios" EntityType="Modelo.Store.Usuarios" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Administradores" EntityType="Modelo.Store.Administradores" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Perfiles" EntityType="Modelo.Store.Perfiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Zonas" EntityType="Modelo.Store.Zonas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Horarios" EntityType="Modelo.Store.Horarios" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServisProfesiones" EntityType="Modelo.Store.ServisProfesiones" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServisPresupuestos" EntityType="Modelo.Store.ServisPresupuestos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UsuariosPerfiles" EntityType="Modelo.Store.UsuariosPerfiles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AdministradoresPerfiles" EntityType="Modelo.Store.AdministradoresPerfiles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServisPerfiles" EntityType="Modelo.Store.ServisPerfiles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TareasServis" EntityType="Modelo.Store.TareasServis" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_SolicitudesPresupuestos" Association="Modelo.Store.FK_SolicitudesPresupuestos">
-      <End Role="Solicitudes" EntitySet="Solicitudes" />
-      <End Role="Presupuestos" EntitySet="Presupuestos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProfesionesTareas" Association="Modelo.Store.FK_ProfesionesTareas">
-      <End Role="Profesiones" EntitySet="Profesiones" />
-      <End Role="Tareas" EntitySet="Tareas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UsuariosSolicitudes" Association="Modelo.Store.FK_UsuariosSolicitudes">
-      <End Role="Usuarios" EntitySet="Usuarios" />
-      <End Role="Solicitudes" EntitySet="Solicitudes" />
-    </AssociationSet>
     <AssociationSet Name="FK_ServisProfesiones_Profesiones" Association="Modelo.Store.FK_ServisProfesiones_Profesiones">
       <End Role="Profesiones" EntitySet="Profesiones" />
       <End Role="ServisProfesiones" EntitySet="ServisProfesiones" />
@@ -39,9 +30,13 @@
       <End Role="Servis" EntitySet="Servis" />
       <End Role="ServisProfesiones" EntitySet="ServisProfesiones" />
     </AssociationSet>
-    <AssociationSet Name="ServisPresupuestos" Association="Modelo.Store.ServisPresupuestos">
+    <AssociationSet Name="FK_ServisPresupuestos_Servis" Association="Modelo.Store.FK_ServisPresupuestos_Servis">
       <End Role="Servis" EntitySet="Servis" />
+      <End Role="ServisPresupuestos" EntitySet="ServisPresupuestos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServisPresupuestos_Presupuestos" Association="Modelo.Store.FK_ServisPresupuestos_Presupuestos">
       <End Role="Presupuestos" EntitySet="Presupuestos" />
+      <End Role="ServisPresupuestos" EntitySet="ServisPresupuestos" />
     </AssociationSet>
     <AssociationSet Name="TareasSolicitudes" Association="Modelo.Store.TareasSolicitudes">
       <End Role="Tareas" EntitySet="Tareas" />
@@ -83,6 +78,26 @@
       <End Role="Servis" EntitySet="Servis" />
       <End Role="TareasServis" EntitySet="TareasServis" />
     </AssociationSet>
+    <AssociationSet Name="SolicitudesPresupuestos" Association="Modelo.Store.SolicitudesPresupuestos">
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+      <End Role="Presupuestos" EntitySet="Presupuestos" />
+    </AssociationSet>
+    <AssociationSet Name="ZonasSolicitudes" Association="Modelo.Store.ZonasSolicitudes">
+      <End Role="Zonas" EntitySet="Zonas" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+    <AssociationSet Name="UsuariosSolicitudes" Association="Modelo.Store.UsuariosSolicitudes">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+    <AssociationSet Name="ProfesionesTareas" Association="Modelo.Store.ProfesionesTareas">
+      <End Role="Profesiones" EntitySet="Profesiones" />
+      <End Role="Tareas" EntitySet="Tareas" />
+    </AssociationSet>
+    <AssociationSet Name="HorariosSolicitudes" Association="Modelo.Store.HorariosSolicitudes">
+      <End Role="Horarios" EntitySet="Horarios" />
+      <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Presupuestos">
     <Key>
@@ -93,8 +108,7 @@
     <Property Name="Fecha_Vencimiento" Type="datetime" Nullable="false" />
     <Property Name="Precio" Type="decimal" Nullable="false" Precision="18" Scale="0" />
     <Property Name="Observacion" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Solicitudes_Id_Ssolisitud" Type="int" Nullable="false" />
-    <Property Name="Servis_Id_Servi" Type="int" Nullable="false" />
+    <Property Name="Solicitudes_Id_Solicitud" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Profesiones">
     <Key>
@@ -120,18 +134,19 @@
   </EntityType>
   <EntityType Name="Solicitudes">
     <Key>
-      <PropertyRef Name="Id_Ssolisitud" />
+      <PropertyRef Name="Id_Solicitud" />
     </Key>
-    <Property Name="Id_Ssolisitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Contador" Type="int" Nullable="false" />
-    <Property Name="Foto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contador" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Foto" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
-    <Property Name="Zona" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Desc_Solicitud" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Usuarios_Id_Usuario" Type="int" Nullable="false" />
     <Property Name="Tareas_Id_Tarea" Type="int" Nullable="false" />
     <Property Name="Profesiones_Id_Profesion" Type="int" Nullable="false" />
+    <Property Name="Zonas_Id_Zona" Type="int" Nullable="false" />
+    <Property Name="Usuarios_Id_Usuario" Type="int" Nullable="false" />
+    <Property Name="Horarios_Id_Horario" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Tareas">
     <Key>
@@ -172,6 +187,20 @@
     <Property Name="Perfil" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Activo" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="Zonas">
+    <Key>
+      <PropertyRef Name="Id_Zona" />
+    </Key>
+    <Property Name="Id_Zona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Zona" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Horarios">
+    <Key>
+      <PropertyRef Name="Id_Horario" />
+    </Key>
+    <Property Name="Id_Horario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Horario" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="ServisProfesiones">
     <Key>
       <PropertyRef Name="Profesiones_Id_Profesion" />
@@ -179,6 +208,14 @@
     </Key>
     <Property Name="Profesiones_Id_Profesion" Type="int" Nullable="false" />
     <Property Name="Servis_Id_Servi" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServisPresupuestos">
+    <Key>
+      <PropertyRef Name="Servis_Id_Servi" />
+      <PropertyRef Name="Presupuestos_Id_Presupuesto" />
+    </Key>
+    <Property Name="Servis_Id_Servi" Type="int" Nullable="false" />
+    <Property Name="Presupuestos_Id_Presupuesto" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UsuariosPerfiles">
     <Key>
@@ -212,54 +249,6 @@
     <Property Name="Tareas_Id_Tarea" Type="int" Nullable="false" />
     <Property Name="Servis_Id_Servi" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_SolicitudesPresupuestos">
-    <End Role="Solicitudes" Type="Modelo.Store.Solicitudes" Multiplicity="1" />
-    <End Role="Presupuestos" Type="Modelo.Store.Presupuestos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Solicitudes">
-        <PropertyRef Name="Id_Ssolisitud" />
-      </Principal>
-      <Dependent Role="Presupuestos">
-        <PropertyRef Name="Solicitudes_Id_Ssolisitud" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProfesionesTareas">
-    <End Role="Profesiones" Type="Modelo.Store.Profesiones" Multiplicity="1" />
-    <End Role="Tareas" Type="Modelo.Store.Tareas" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Profesiones">
-        <PropertyRef Name="Id_Profesion" />
-      </Principal>
-      <Dependent Role="Tareas">
-        <PropertyRef Name="Profesiones_Id_Profesion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UsuariosSolicitudes">
-    <End Role="Usuarios" Type="Modelo.Store.Usuarios" Multiplicity="1" />
-    <End Role="Solicitudes" Type="Modelo.Store.Solicitudes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Usuarios">
-        <PropertyRef Name="Id_Usuario" />
-      </Principal>
-      <Dependent Role="Solicitudes">
-        <PropertyRef Name="Usuarios_Id_Usuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ServisPresupuestos">
-    <End Role="Servis" Type="Modelo.Store.Servis" Multiplicity="1" />
-    <End Role="Presupuestos" Type="Modelo.Store.Presupuestos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Servis">
-        <PropertyRef Name="Id_Servi" />
-      </Principal>
-      <Dependent Role="Presupuestos">
-        <PropertyRef Name="Servis_Id_Servi" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="TareasSolicitudes">
     <End Role="Tareas" Type="Modelo.Store.Tareas" Multiplicity="1" />
     <End Role="Solicitudes" Type="Modelo.Store.Solicitudes" Multiplicity="*" />
@@ -284,6 +273,66 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="SolicitudesPresupuestos">
+    <End Role="Solicitudes" Type="Modelo.Store.Solicitudes" Multiplicity="1" />
+    <End Role="Presupuestos" Type="Modelo.Store.Presupuestos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitudes">
+        <PropertyRef Name="Id_Solicitud" />
+      </Principal>
+      <Dependent Role="Presupuestos">
+        <PropertyRef Name="Solicitudes_Id_Solicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ZonasSolicitudes">
+    <End Role="Zonas" Type="Modelo.Store.Zonas" Multiplicity="1" />
+    <End Role="Solicitudes" Type="Modelo.Store.Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zonas">
+        <PropertyRef Name="Id_Zona" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="Zonas_Id_Zona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuariosSolicitudes">
+    <End Role="Usuarios" Type="Modelo.Store.Usuarios" Multiplicity="1" />
+    <End Role="Solicitudes" Type="Modelo.Store.Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Id_Usuario" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="Usuarios_Id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProfesionesTareas">
+    <End Role="Profesiones" Type="Modelo.Store.Profesiones" Multiplicity="1" />
+    <End Role="Tareas" Type="Modelo.Store.Tareas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profesiones">
+        <PropertyRef Name="Id_Profesion" />
+      </Principal>
+      <Dependent Role="Tareas">
+        <PropertyRef Name="Profesiones_Id_Profesion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HorariosSolicitudes">
+    <End Role="Horarios" Type="Modelo.Store.Horarios" Multiplicity="1" />
+    <End Role="Solicitudes" Type="Modelo.Store.Solicitudes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Horarios">
+        <PropertyRef Name="Id_Horario" />
+      </Principal>
+      <Dependent Role="Solicitudes">
+        <PropertyRef Name="Horarios_Id_Horario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ServisProfesiones_Profesiones">
     <End Role="Profesiones" Type="Modelo.Store.Profesiones" Multiplicity="1" />
     <End Role="ServisProfesiones" Type="Modelo.Store.ServisProfesiones" Multiplicity="*" />
@@ -305,6 +354,30 @@
       </Principal>
       <Dependent Role="ServisProfesiones">
         <PropertyRef Name="Servis_Id_Servi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServisPresupuestos_Servis">
+    <End Role="Servis" Type="Modelo.Store.Servis" Multiplicity="1" />
+    <End Role="ServisPresupuestos" Type="Modelo.Store.ServisPresupuestos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servis">
+        <PropertyRef Name="Id_Servi" />
+      </Principal>
+      <Dependent Role="ServisPresupuestos">
+        <PropertyRef Name="Servis_Id_Servi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServisPresupuestos_Presupuestos">
+    <End Role="ServisPresupuestos" Type="Modelo.Store.ServisPresupuestos" Multiplicity="*" />
+    <End Role="Presupuestos" Type="Modelo.Store.Presupuestos" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Presupuestos">
+        <PropertyRef Name="Id_Presupuesto" />
+      </Principal>
+      <Dependent Role="ServisPresupuestos">
+        <PropertyRef Name="Presupuestos_Id_Presupuesto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -415,18 +488,6 @@
           <EntitySet Name="Solicitudes" EntityType="Modelo.Solicitudes" />
           <EntitySet Name="Tareas" EntityType="Modelo.Tareas" />
           <EntitySet Name="Usuarios" EntityType="Modelo.Usuarios" />
-          <AssociationSet Name="FK_SolicitudesPresupuestos" Association="Modelo.FK_SolicitudesPresupuestos">
-            <End Role="Solicitudes" EntitySet="Solicitudes" />
-            <End Role="Presupuestos" EntitySet="Presupuestos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProfesionesTareas" Association="Modelo.FK_ProfesionesTareas">
-            <End Role="Profesiones" EntitySet="Profesiones" />
-            <End Role="Tareas" EntitySet="Tareas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuariosSolicitudes" Association="Modelo.FK_UsuariosSolicitudes">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="Solicitudes" EntitySet="Solicitudes" />
-          </AssociationSet>
           <AssociationSet Name="ServisProfesiones" Association="Modelo.ServisProfesiones">
             <End Role="Profesiones" EntitySet="Profesiones" />
             <End Role="Servis" EntitySet="Servis" />
@@ -461,6 +522,28 @@
             <End Role="Tareas" EntitySet="Tareas" />
             <End Role="Servis" EntitySet="Servis" />
           </AssociationSet>
+          <EntitySet Name="Zonas" EntityType="Modelo.Zonas" />
+          <AssociationSet Name="SolicitudesPresupuestos" Association="Modelo.SolicitudesPresupuestos">
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+            <End Role="Presupuestos" EntitySet="Presupuestos" />
+          </AssociationSet>
+          <AssociationSet Name="ZonasSolicitudes" Association="Modelo.ZonasSolicitudes">
+            <End Role="Zonas" EntitySet="Zonas" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="UsuariosSolicitudes" Association="Modelo.UsuariosSolicitudes">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
+          <AssociationSet Name="ProfesionesTareas" Association="Modelo.ProfesionesTareas">
+            <End Role="Profesiones" EntitySet="Profesiones" />
+            <End Role="Tareas" EntitySet="Tareas" />
+          </AssociationSet>
+          <EntitySet Name="Horarios" EntityType="Modelo.Horarios" />
+          <AssociationSet Name="HorariosSolicitudes" Association="Modelo.HorariosSolicitudes">
+            <End Role="Horarios" EntitySet="Horarios" />
+            <End Role="Solicitudes" EntitySet="Solicitudes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Presupuestos">
           <Key>
@@ -471,9 +554,8 @@
           <Property Name="Fecha_Vencimiento" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Solicitudes_Id_Ssolisitud" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Solicitudes" Relationship="Modelo.FK_SolicitudesPresupuestos" FromRole="Presupuestos" ToRole="Solicitudes" />
           <NavigationProperty Name="Servis" Relationship="Modelo.ServisPresupuestos" FromRole="Presupuestos" ToRole="Servis" />
+          <NavigationProperty Name="Solicitudes" Relationship="Modelo.SolicitudesPresupuestos" FromRole="Presupuestos" ToRole="Solicitudes" />
         </EntityType>
         <EntityType Name="Profesiones">
           <Key>
@@ -481,9 +563,9 @@
           </Key>
           <Property Name="Id_Profesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Desc_Profesion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tareas" Relationship="Modelo.FK_ProfesionesTareas" FromRole="Profesiones" ToRole="Tareas" />
           <NavigationProperty Name="Servis" Relationship="Modelo.ServisProfesiones" FromRole="Profesiones" ToRole="Servis" />
           <NavigationProperty Name="Solicitudes" Relationship="Modelo.ProfesionesSolicitudes" FromRole="Profesiones" ToRole="Solicitudes" />
+          <NavigationProperty Name="Tareas" Relationship="Modelo.ProfesionesTareas" FromRole="Profesiones" ToRole="Tareas" />
         </EntityType>
         <EntityType Name="Servis">
           <Key>
@@ -506,20 +588,20 @@
         </EntityType>
         <EntityType Name="Solicitudes">
           <Key>
-            <PropertyRef Name="Id_Ssolisitud" />
+            <PropertyRef Name="Id_Solicitud" />
           </Key>
-          <Property Name="Id_Ssolisitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Estado" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Contador" Type="Int32" Nullable="false" />
-          <Property Name="Foto" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Contador" Type="Int32" Nullable="false" DefaultValue="0" />
+          <Property Name="Foto" Type="String" Nullable="true" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Zona" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Desc_Solicitud" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Usuarios_Id_Usuario" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Presupuestos" Relationship="Modelo.FK_SolicitudesPresupuestos" FromRole="Solicitudes" ToRole="Presupuestos" />
-          <NavigationProperty Name="Usuarios" Relationship="Modelo.FK_UsuariosSolicitudes" FromRole="Solicitudes" ToRole="Usuarios" />
           <NavigationProperty Name="Tareas" Relationship="Modelo.TareasSolicitudes" FromRole="Solicitudes" ToRole="Tareas" />
           <NavigationProperty Name="Profesiones" Relationship="Modelo.ProfesionesSolicitudes" FromRole="Solicitudes" ToRole="Profesiones" />
+          <NavigationProperty Name="Presupuestos" Relationship="Modelo.SolicitudesPresupuestos" FromRole="Solicitudes" ToRole="Presupuestos" />
+          <NavigationProperty Name="Zonas" Relationship="Modelo.ZonasSolicitudes" FromRole="Solicitudes" ToRole="Zonas" />
+          <NavigationProperty Name="Usuarios" Relationship="Modelo.UsuariosSolicitudes" FromRole="Solicitudes" ToRole="Usuarios" />
+          <NavigationProperty Name="Horarios" Relationship="Modelo.HorariosSolicitudes" FromRole="Solicitudes" ToRole="Horarios" />
         </EntityType>
         <EntityType Name="Tareas">
           <Key>
@@ -527,10 +609,9 @@
           </Key>
           <Property Name="Id_Tarea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Desc_Tarea" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Profesiones_Id_Profesion" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Profesiones" Relationship="Modelo.FK_ProfesionesTareas" FromRole="Tareas" ToRole="Profesiones" />
           <NavigationProperty Name="Solicitudes" Relationship="Modelo.TareasSolicitudes" FromRole="Tareas" ToRole="Solicitudes" />
           <NavigationProperty Name="Servis" Relationship="Modelo.TareasServis" FromRole="Tareas" ToRole="Servis" />
+          <NavigationProperty Name="Profesiones" Relationship="Modelo.ProfesionesTareas" FromRole="Tareas" ToRole="Profesiones" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -543,51 +624,15 @@
           <Property Name="Telefono" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Pass" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Activo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Solicitudes" Relationship="Modelo.FK_UsuariosSolicitudes" FromRole="Usuarios" ToRole="Solicitudes" />
           <NavigationProperty Name="Perfiles" Relationship="Modelo.UsuariosPerfiles" FromRole="Usuarios" ToRole="Perfiles" />
+          <NavigationProperty Name="Solicitudes" Relationship="Modelo.UsuariosSolicitudes" FromRole="Usuarios" ToRole="Solicitudes" />
         </EntityType>
-        <Association Name="FK_SolicitudesPresupuestos">
-          <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="1" />
-          <End Type="Modelo.Presupuestos" Role="Presupuestos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Solicitudes">
-              <PropertyRef Name="Id_Ssolisitud" />
-            </Principal>
-            <Dependent Role="Presupuestos">
-              <PropertyRef Name="Solicitudes_Id_Ssolisitud" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProfesionesTareas">
-          <End Type="Modelo.Profesiones" Role="Profesiones" Multiplicity="1" />
-          <End Type="Modelo.Tareas" Role="Tareas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesiones">
-              <PropertyRef Name="Id_Profesion" />
-            </Principal>
-            <Dependent Role="Tareas">
-              <PropertyRef Name="Profesiones_Id_Profesion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuariosSolicitudes">
-          <End Type="Modelo.Usuarios" Role="Usuarios" Multiplicity="1" />
-          <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="Id_Usuario" />
-            </Principal>
-            <Dependent Role="Solicitudes">
-              <PropertyRef Name="Usuarios_Id_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ServisProfesiones">
           <End Type="Modelo.Profesiones" Role="Profesiones" Multiplicity="*" />
           <End Type="Modelo.Servis" Role="Servis" Multiplicity="*" />
         </Association>
         <Association Name="ServisPresupuestos">
-          <End Type="Modelo.Servis" Role="Servis" Multiplicity="1" />
+          <End Type="Modelo.Servis" Role="Servis" Multiplicity="*" />
           <End Type="Modelo.Presupuestos" Role="Presupuestos" Multiplicity="*" />
         </Association>
         <Association Name="TareasSolicitudes">
@@ -637,6 +682,42 @@
           <End Type="Modelo.Tareas" Role="Tareas" Multiplicity="*" />
           <End Type="Modelo.Servis" Role="Servis" Multiplicity="*" />
         </Association>
+        <EntityType Name="Zonas">
+          <Key>
+            <PropertyRef Name="Id_Zona" />
+          </Key>
+          <Property Name="Id_Zona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Zona" Type="String" Nullable="false" />
+          <NavigationProperty Name="Solicitudes" Relationship="Modelo.ZonasSolicitudes" FromRole="Zonas" ToRole="Solicitudes" />
+        </EntityType>
+        <Association Name="SolicitudesPresupuestos">
+          <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="1" />
+          <End Type="Modelo.Presupuestos" Role="Presupuestos" Multiplicity="*" />
+        </Association>
+        <Association Name="ZonasSolicitudes">
+          <End Type="Modelo.Zonas" Role="Zonas" Multiplicity="1" />
+          <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+        </Association>
+        <Association Name="UsuariosSolicitudes">
+          <End Type="Modelo.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+        </Association>
+        <Association Name="ProfesionesTareas">
+          <End Type="Modelo.Profesiones" Role="Profesiones" Multiplicity="1" />
+          <End Type="Modelo.Tareas" Role="Tareas" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Horarios">
+          <Key>
+            <PropertyRef Name="Id_Horario" />
+          </Key>
+          <Property Name="Id_Horario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Horario" Type="String" Nullable="false" />
+          <NavigationProperty Name="Solicitudes" Relationship="Modelo.HorariosSolicitudes" FromRole="Horarios" ToRole="Solicitudes" />
+        </EntityType>
+        <Association Name="HorariosSolicitudes">
+          <End Type="Modelo.Horarios" Role="Horarios" Multiplicity="1" />
+          <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -651,7 +732,6 @@
           <ScalarProperty Name="Fecha_Vencimiento" ColumnName="Fecha_Vencimiento" />
           <ScalarProperty Name="Precio" ColumnName="Precio" />
           <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-          <ScalarProperty Name="Solicitudes_Id_Ssolisitud" ColumnName="Solicitudes_Id_Ssolisitud" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -682,14 +762,12 @@
     <EntitySetMapping Name="Solicitudes">
       <EntityTypeMapping TypeName="IsTypeOf(Modelo.Solicitudes)">
         <MappingFragment StoreEntitySet="Solicitudes">
-          <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+          <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Contador" ColumnName="Contador" />
           <ScalarProperty Name="Foto" ColumnName="Foto" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Zona" ColumnName="Zona" />
           <ScalarProperty Name="Desc_Solicitud" ColumnName="Desc_Solicitud" />
-          <ScalarProperty Name="Usuarios_Id_Usuario" ColumnName="Usuarios_Id_Usuario" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -698,7 +776,6 @@
         <MappingFragment StoreEntitySet="Tareas">
           <ScalarProperty Name="Id_Tarea" ColumnName="Id_Tarea" />
           <ScalarProperty Name="Desc_Tarea" ColumnName="Desc_Tarea" />
-          <ScalarProperty Name="Profesiones_Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -736,6 +813,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Zonas">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Zonas)">
+        <MappingFragment StoreEntitySet="Zonas">
+          <ScalarProperty Name="Id_Zona" ColumnName="Id_Zona" />
+          <ScalarProperty Name="Zona" ColumnName="Zona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Horarios">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Horarios)">
+        <MappingFragment StoreEntitySet="Horarios">
+          <ScalarProperty Name="Id_Horario" ColumnName="Id_Horario" />
+          <ScalarProperty Name="Horario" ColumnName="Horario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="ServisProfesiones" TypeName="Modelo.ServisProfesiones" StoreEntitySet="ServisProfesiones">
       <EndProperty Name="Profesiones">
         <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
@@ -744,12 +837,12 @@
         <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ServisPresupuestos" TypeName="Modelo.ServisPresupuestos" StoreEntitySet="Presupuestos">
+    <AssociationSetMapping Name="ServisPresupuestos" TypeName="Modelo.ServisPresupuestos" StoreEntitySet="ServisPresupuestos">
       <EndProperty Name="Servis">
         <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
       </EndProperty>
       <EndProperty Name="Presupuestos">
-        <ScalarProperty Name="Id_Presupuesto" ColumnName="Id_Presupuesto" />
+        <ScalarProperty Name="Id_Presupuesto" ColumnName="Presupuestos_Id_Presupuesto" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="TareasSolicitudes" TypeName="Modelo.TareasSolicitudes" StoreEntitySet="Solicitudes">
@@ -757,7 +850,7 @@
         <ScalarProperty Name="Id_Tarea" ColumnName="Tareas_Id_Tarea" />
       </EndProperty>
       <EndProperty Name="Solicitudes">
-        <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="ProfesionesSolicitudes" TypeName="Modelo.ProfesionesSolicitudes" StoreEntitySet="Solicitudes">
@@ -765,7 +858,7 @@
         <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
       </EndProperty>
       <EndProperty Name="Solicitudes">
-        <ScalarProperty Name="Id_Ssolisitud" ColumnName="Id_Ssolisitud" />
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="UsuariosPerfiles" TypeName="Modelo.UsuariosPerfiles" StoreEntitySet="UsuariosPerfiles">
@@ -798,6 +891,46 @@
       </EndProperty>
       <EndProperty Name="Servis">
         <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SolicitudesPresupuestos" TypeName="Modelo.SolicitudesPresupuestos" StoreEntitySet="Presupuestos">
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Solicitudes_Id_Solicitud" />
+      </EndProperty>
+      <EndProperty Name="Presupuestos">
+        <ScalarProperty Name="Id_Presupuesto" ColumnName="Id_Presupuesto" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ZonasSolicitudes" TypeName="Modelo.ZonasSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Zonas">
+        <ScalarProperty Name="Id_Zona" ColumnName="Zonas_Id_Zona" />
+      </EndProperty>
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UsuariosSolicitudes" TypeName="Modelo.UsuariosSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Usuarios">
+        <ScalarProperty Name="Id_Usuario" ColumnName="Usuarios_Id_Usuario" />
+      </EndProperty>
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProfesionesTareas" TypeName="Modelo.ProfesionesTareas" StoreEntitySet="Tareas">
+      <EndProperty Name="Profesiones">
+        <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
+      </EndProperty>
+      <EndProperty Name="Tareas">
+        <ScalarProperty Name="Id_Tarea" ColumnName="Id_Tarea" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="HorariosSolicitudes" TypeName="Modelo.HorariosSolicitudes" StoreEntitySet="Solicitudes">
+      <EndProperty Name="Horarios">
+        <ScalarProperty Name="Id_Horario" ColumnName="Horarios_Id_Horario" />
+      </EndProperty>
+      <EndProperty Name="Solicitudes">
+        <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
