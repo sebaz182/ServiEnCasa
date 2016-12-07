@@ -63,6 +63,21 @@
       <End Role="Horarios" EntitySet="Horarios" />
       <End Role="Solicitudes" EntitySet="Solicitudes" />
     </AssociationSet>
+    <EntitySet Name="Servicios" EntityType="Modelo.Servicios" />
+    <AssociationSet Name="PresupuestosServicios" Association="Modelo.PresupuestosServicios">
+      <End Role="Presupuestos" EntitySet="Presupuestos" />
+      <End Role="Servicios" EntitySet="Servicios" />
+    </AssociationSet>
+    <EntitySet Name="CuentaCorrientes" EntityType="Modelo.CuentaCorriente" />
+    <AssociationSet Name="ServisCuentaCorriente" Association="Modelo.ServisCuentaCorriente">
+      <End Role="Servis" EntitySet="Servis" />
+      <End Role="CuentaCorriente" EntitySet="CuentaCorrientes" />
+    </AssociationSet>
+    <EntitySet Name="Calificaciones" EntityType="Modelo.Calificaciones" />
+    <AssociationSet Name="ServiciosCalificaciones" Association="Modelo.ServiciosCalificaciones">
+      <End Role="Servicios" EntitySet="Servicios" />
+      <End Role="Calificaciones" EntitySet="Calificaciones" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Presupuestos">
     <Key>
@@ -75,6 +90,7 @@
     <Property Name="Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Servis" Relationship="Modelo.ServisPresupuestos" FromRole="Presupuestos" ToRole="Servis" />
     <NavigationProperty Name="Solicitudes" Relationship="Modelo.SolicitudesPresupuestos" FromRole="Presupuestos" ToRole="Solicitudes" />
+    <NavigationProperty Name="Servicios" Relationship="Modelo.PresupuestosServicios" FromRole="Presupuestos" ToRole="Servicios" />
   </EntityType>
   <EntityType Name="Profesiones">
     <Key>
@@ -104,6 +120,7 @@
     <NavigationProperty Name="Perfiles" Relationship="Modelo.ServisPerfiles" FromRole="Servis" ToRole="Perfiles" />
     <NavigationProperty Name="Tareas" Relationship="Modelo.TareasServis" FromRole="Servis" ToRole="Tareas" />
     <Property Name="Telefono" Type="String" Nullable="false" />
+    <NavigationProperty Name="CuentaCorriente" Relationship="Modelo.ServisCuentaCorriente" FromRole="Servis" ToRole="CuentaCorriente" />
   </EntityType>
   <EntityType Name="Solicitudes">
     <Key>
@@ -236,5 +253,49 @@
   <Association Name="HorariosSolicitudes">
     <End Type="Modelo.Horarios" Role="Horarios" Multiplicity="1" />
     <End Type="Modelo.Solicitudes" Role="Solicitudes" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Servicios">
+    <Key>
+      <PropertyRef Name="Id_Servicio" />
+    </Key>
+    <Property Name="Id_Servicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Presupuestos" Relationship="Modelo.PresupuestosServicios" FromRole="Servicios" ToRole="Presupuestos" />
+    <Property Name="Estado" Type="String" Nullable="false" />
+    <NavigationProperty Name="Calificaciones" Relationship="Modelo.ServiciosCalificaciones" FromRole="Servicios" ToRole="Calificaciones" />
+  </EntityType>
+  <Association Name="PresupuestosServicios">
+    <End Type="Modelo.Presupuestos" Role="Presupuestos" Multiplicity="1" />
+    <End Type="Modelo.Servicios" Role="Servicios" Multiplicity="*" />
+  </Association>
+  <EntityType Name="CuentaCorriente">
+    <Key>
+      <PropertyRef Name="Id_CtaCorriente" />
+    </Key>
+    <Property Name="Id_CtaCorriente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Credito" Type="Decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Debito" Type="Decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Importe" Type="Decimal" Nullable="false" DefaultValue="0" />
+    <NavigationProperty Name="Servis" Relationship="Modelo.ServisCuentaCorriente" FromRole="CuentaCorriente" ToRole="Servis" />
+  </EntityType>
+  <Association Name="ServisCuentaCorriente">
+    <End Type="Modelo.Servis" Role="Servis" Multiplicity="1" />
+    <End Type="Modelo.CuentaCorriente" Role="CuentaCorriente" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Calificaciones">
+    <Key>
+      <PropertyRef Name="Id_Calificacion" />
+    </Key>
+    <Property Name="Id_Calificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Servicios" Relationship="Modelo.ServiciosCalificaciones" FromRole="Calificaciones" ToRole="Servicios" />
+    <Property Name="Obs_Servi" Type="String" Nullable="true" />
+    <Property Name="Obs_Usuario" Type="String" Nullable="true" />
+    <Property Name="Cumplimiento" Type="Boolean" Nullable="true" />
+    <Property Name="Cal_Servi" Type="Int32" Nullable="true" />
+    <Property Name="Cal_Usuario" Type="Int32" Nullable="true" />
+    <Property Name="Cal_Trabajo" Type="Int32" Nullable="true" />
+  </EntityType>
+  <Association Name="ServiciosCalificaciones">
+    <End Type="Modelo.Servicios" Role="Servicios" Multiplicity="1" />
+    <End Type="Modelo.Calificaciones" Role="Calificaciones" Multiplicity="*" />
   </Association>
 </Schema>

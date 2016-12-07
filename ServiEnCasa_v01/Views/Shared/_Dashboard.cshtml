@@ -27,7 +27,8 @@
                 @*@if (Request.IsAuthenticated && User.IsInRole("Reservas"))*@
                 @*{*@
                     <li>@Html.ActionLink("Mis Solicitudes", "MisSolicitudes", "Solicitudes")</li>
-                    <li>@Html.ActionLink("Hoteles", "Index", "Hoteles")</li>
+                    <li>@Html.ActionLink("Mis Servicios", "MisServicios", "Servicios")</li>
+                    @*<li>@Html.ActionLink("Hoteles", "Index", "Hoteles")</li>*@
                 @*}*@
             </ul>
         </li>

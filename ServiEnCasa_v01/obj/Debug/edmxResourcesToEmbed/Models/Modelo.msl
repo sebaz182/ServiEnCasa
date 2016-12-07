@@ -106,6 +106,37 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Servicios">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Servicios)">
+        <MappingFragment StoreEntitySet="Servicios">
+          <ScalarProperty Name="Id_Servicio" ColumnName="Id_Servicio" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CuentaCorrientes">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.CuentaCorriente)">
+        <MappingFragment StoreEntitySet="CuentaCorrientes">
+          <ScalarProperty Name="Id_CtaCorriente" ColumnName="Id_CtaCorriente" />
+          <ScalarProperty Name="Credito" ColumnName="Credito" />
+          <ScalarProperty Name="Debito" ColumnName="Debito" />
+          <ScalarProperty Name="Importe" ColumnName="Importe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Calificaciones">
+      <EntityTypeMapping TypeName="IsTypeOf(Modelo.Calificaciones)">
+        <MappingFragment StoreEntitySet="Calificaciones">
+          <ScalarProperty Name="Id_Calificacion" ColumnName="Id_Calificacion" />
+          <ScalarProperty Name="Obs_Servi" ColumnName="Obs_Servi" />
+          <ScalarProperty Name="Obs_Usuario" ColumnName="Obs_Usuario" />
+          <ScalarProperty Name="Cumplimiento" ColumnName="Cumplimiento" />
+          <ScalarProperty Name="Cal_Servi" ColumnName="Cal_Servi" />
+          <ScalarProperty Name="Cal_Usuario" ColumnName="Cal_Usuario" />
+          <ScalarProperty Name="Cal_Trabajo" ColumnName="Cal_Trabajo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="ServisProfesiones" TypeName="Modelo.ServisProfesiones" StoreEntitySet="ServisProfesiones">
       <EndProperty Name="Profesiones">
         <ScalarProperty Name="Id_Profesion" ColumnName="Profesiones_Id_Profesion" />
@@ -208,6 +239,30 @@
       </EndProperty>
       <EndProperty Name="Solicitudes">
         <ScalarProperty Name="Id_Solicitud" ColumnName="Id_Solicitud" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PresupuestosServicios" TypeName="Modelo.PresupuestosServicios" StoreEntitySet="Servicios">
+      <EndProperty Name="Presupuestos">
+        <ScalarProperty Name="Id_Presupuesto" ColumnName="Presupuestos_Id_Presupuesto" />
+      </EndProperty>
+      <EndProperty Name="Servicios">
+        <ScalarProperty Name="Id_Servicio" ColumnName="Id_Servicio" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServisCuentaCorriente" TypeName="Modelo.ServisCuentaCorriente" StoreEntitySet="CuentaCorrientes">
+      <EndProperty Name="Servis">
+        <ScalarProperty Name="Id_Servi" ColumnName="Servis_Id_Servi" />
+      </EndProperty>
+      <EndProperty Name="CuentaCorriente">
+        <ScalarProperty Name="Id_CtaCorriente" ColumnName="Id_CtaCorriente" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServiciosCalificaciones" TypeName="Modelo.ServiciosCalificaciones" StoreEntitySet="Calificaciones">
+      <EndProperty Name="Servicios">
+        <ScalarProperty Name="Id_Servicio" ColumnName="Servicios_Id_Servicio" />
+      </EndProperty>
+      <EndProperty Name="Calificaciones">
+        <ScalarProperty Name="Id_Calificacion" ColumnName="Id_Calificacion" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

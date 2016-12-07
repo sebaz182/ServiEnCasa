@@ -35,5 +35,8 @@ namespace ServiEnCasa_v01.Models
         public virtual DbSet<Perfiles> Perfiles { get; set; }
         public virtual DbSet<Zonas> Zonas { get; set; }
         public virtual DbSet<Horarios> Horarios { get; set; }
+        public virtual DbSet<Servicios> Servicios { get; set; }
+        public virtual DbSet<CuentaCorriente> CuentaCorrientes { get; set; }
+        public virtual DbSet<Calificaciones> Calificaciones { get; set; }
     }
 }

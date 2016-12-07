@@ -15,7 +15,7 @@ namespace ServiEnCasa_v01.Controllers
         [HttpGet]
         public ActionResult MisSolicitudes()
         {
-            return View(db.Solicitudes.ToList());
+            return View(db.Solicitudes.Where(x=>x.Estado != "Realizado" ).ToList());
         }
 
         // GET: Solicitudes/Details/5

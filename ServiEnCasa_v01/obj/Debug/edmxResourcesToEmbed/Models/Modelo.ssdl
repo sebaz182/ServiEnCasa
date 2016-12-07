@@ -11,6 +11,9 @@
     <EntitySet Name="Perfiles" EntityType="Modelo.Store.Perfiles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zonas" EntityType="Modelo.Store.Zonas" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Horarios" EntityType="Modelo.Store.Horarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Servicios" EntityType="Modelo.Store.Servicios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CuentaCorrientes" EntityType="Modelo.Store.CuentaCorrientes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Calificaciones" EntityType="Modelo.Store.Calificaciones" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServisProfesiones" EntityType="Modelo.Store.ServisProfesiones" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServisPresupuestos" EntityType="Modelo.Store.ServisPresupuestos" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UsuariosPerfiles" EntityType="Modelo.Store.UsuariosPerfiles" store:Type="Tables" Schema="dbo" />
@@ -92,6 +95,18 @@
     <AssociationSet Name="HorariosSolicitudes" Association="Modelo.Store.HorariosSolicitudes">
       <End Role="Horarios" EntitySet="Horarios" />
       <End Role="Solicitudes" EntitySet="Solicitudes" />
+    </AssociationSet>
+    <AssociationSet Name="PresupuestosServicios" Association="Modelo.Store.PresupuestosServicios">
+      <End Role="Presupuestos" EntitySet="Presupuestos" />
+      <End Role="Servicios" EntitySet="Servicios" />
+    </AssociationSet>
+    <AssociationSet Name="ServisCuentaCorriente" Association="Modelo.Store.ServisCuentaCorriente">
+      <End Role="Servis" EntitySet="Servis" />
+      <End Role="CuentaCorriente" EntitySet="CuentaCorrientes" />
+    </AssociationSet>
+    <AssociationSet Name="ServiciosCalificaciones" Association="Modelo.Store.ServiciosCalificaciones">
+      <End Role="Servicios" EntitySet="Servicios" />
+      <End Role="Calificaciones" EntitySet="Calificaciones" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Presupuestos">
@@ -195,6 +210,37 @@
     </Key>
     <Property Name="Id_Horario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Horario" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Servicios">
+    <Key>
+      <PropertyRef Name="Id_Servicio" />
+    </Key>
+    <Property Name="Id_Servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Presupuestos_Id_Presupuesto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CuentaCorrientes">
+    <Key>
+      <PropertyRef Name="Id_CtaCorriente" />
+    </Key>
+    <Property Name="Id_CtaCorriente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Credito" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Debito" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Importe" Type="decimal" Nullable="false" DefaultValue="0" />
+    <Property Name="Servis_Id_Servi" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Calificaciones">
+    <Key>
+      <PropertyRef Name="Id_Calificacion" />
+    </Key>
+    <Property Name="Id_Calificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Obs_Servi" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Obs_Usuario" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Cumplimiento" Type="bit" Nullable="true" />
+    <Property Name="Cal_Servi" Type="int" Nullable="true" />
+    <Property Name="Cal_Usuario" Type="int" Nullable="true" />
+    <Property Name="Cal_Trabajo" Type="int" Nullable="true" />
+    <Property Name="Servicios_Id_Servicio" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ServisProfesiones">
     <Key>
@@ -325,6 +371,42 @@
       </Principal>
       <Dependent Role="Solicitudes">
         <PropertyRef Name="Horarios_Id_Horario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PresupuestosServicios">
+    <End Role="Presupuestos" Type="Modelo.Store.Presupuestos" Multiplicity="1" />
+    <End Role="Servicios" Type="Modelo.Store.Servicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Presupuestos">
+        <PropertyRef Name="Id_Presupuesto" />
+      </Principal>
+      <Dependent Role="Servicios">
+        <PropertyRef Name="Presupuestos_Id_Presupuesto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServisCuentaCorriente">
+    <End Role="Servis" Type="Modelo.Store.Servis" Multiplicity="1" />
+    <End Role="CuentaCorriente" Type="Modelo.Store.CuentaCorrientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servis">
+        <PropertyRef Name="Id_Servi" />
+      </Principal>
+      <Dependent Role="CuentaCorriente">
+        <PropertyRef Name="Servis_Id_Servi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiciosCalificaciones">
+    <End Role="Servicios" Type="Modelo.Store.Servicios" Multiplicity="1" />
+    <End Role="Calificaciones" Type="Modelo.Store.Calificaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Servicios">
+        <PropertyRef Name="Id_Servicio" />
+      </Principal>
+      <Dependent Role="Calificaciones">
+        <PropertyRef Name="Servicios_Id_Servicio" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

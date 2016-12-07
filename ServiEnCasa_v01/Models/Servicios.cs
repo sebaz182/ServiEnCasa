@@ -12,25 +12,19 @@ namespace ServiEnCasa_v01.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Presupuestos
+    public partial class Servicios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Presupuestos()
+        public Servicios()
         {
-            this.Servis = new HashSet<Servis>();
-            this.Servicios = new HashSet<Servicios>();
+            this.Calificaciones = new HashSet<Calificaciones>();
         }
     
-        public int Id_Presupuesto { get; set; }
+        public int Id_Servicio { get; set; }
         public string Estado { get; set; }
-        public System.DateTime Fecha_Vencimiento { get; set; }
-        public decimal Precio { get; set; }
-        public string Observacion { get; set; }
     
+        public virtual Presupuestos Presupuestos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Servis> Servis { get; set; }
-        public virtual Solicitudes Solicitudes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Servicios> Servicios { get; set; }
+        public virtual ICollection<Calificaciones> Calificaciones { get; set; }
     }
 }

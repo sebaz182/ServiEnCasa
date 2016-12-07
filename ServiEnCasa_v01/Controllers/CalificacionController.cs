@@ -7,61 +7,35 @@ using System.Web.Mvc;
 
 namespace ServiEnCasa_v01.Controllers
 {
-    public class PresupuestosController : Controller
+    public class CalificacionController : Controller
     {
         private ModeloContainer db = new ModeloContainer();
 
         [HttpGet]
-        public ActionResult PresupuestosSolicitud(int id)
+        public ActionResult CalificarServi(int id)
         {
-            return View(db.Presupuestos.Where(x=>x.Solicitudes.Id_Solicitud==id).ToList());
+            return View(db.Servicios.Where(x => x.Id_Servicio == id).ToList());
         }
 
-        // GET: Presupuestos
+        // GET: Calificacion
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Presupuestos/Details/5
+        // GET: Calificacion/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Presupuestos/Contratar
-        public ActionResult Contratar()
-        {
-            return View();
-        }
-
-        // POST: Presupuestos/Contratar
-        [HttpPost]
-        public ActionResult Contratar(int idPresupuesto)
-        {
-            try
-            {
-                var servicio = new Servicios();
-                servicio.Estado = "Contratado";
-                servicio.Presupuestos.Id_Presupuesto = idPresupuesto;
-                db.Servicios.Add(servicio);
-                db.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return RedirectToAction("Index");
-            }
-        }
-
-        // GET: Presupuestos/Create
+        // GET: Calificacion/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Presupuestos/Create
+        // POST: Calificacion/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -77,15 +51,13 @@ namespace ServiEnCasa_v01.Controllers
             }
         }
 
-
-
-        // GET: Presupuestos/Edit/5
+        // GET: Calificacion/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Presupuestos/Edit/5
+        // POST: Calificacion/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -101,13 +73,13 @@ namespace ServiEnCasa_v01.Controllers
             }
         }
 
-        // GET: Presupuestos/Delete/5
+        // GET: Calificacion/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Presupuestos/Delete/5
+        // POST: Calificacion/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

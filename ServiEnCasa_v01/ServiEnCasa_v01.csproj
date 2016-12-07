@@ -143,11 +143,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CalificacionController.cs" />
     <Compile Include="Controllers\ControlController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\PresupuestosController.cs" />
     <Compile Include="Controllers\ProfesionesController.cs" />
+    <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\ServisController.cs" />
     <Compile Include="Controllers\SolicitudesController.cs" />
     <Compile Include="Controllers\TareasController.cs" />
@@ -157,6 +159,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Administradores.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Calificaciones.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CuentaCorriente.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Horarios.cs">
@@ -186,6 +194,9 @@
     <Compile Include="Models\Profesiones.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Servicios.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Servis.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -207,11 +218,25 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\star-rating.css" />
+    <Content Include="Content\css\star-rating.min.css" />
     <Content Include="Content\img\electricista.jpg" />
     <Content Include="Content\img\electricista2.jpg" />
     <Content Include="Content\img\header_presupuesto.jpg" />
     <Content Include="Content\img\plomero.jpg" />
     <Content Include="Content\img\sinFoto.png" />
+    <Content Include="Content\js\locales\de.js" />
+    <Content Include="Content\js\locales\es.js" />
+    <Content Include="Content\js\locales\fr.js" />
+    <Content Include="Content\js\locales\it.js" />
+    <Content Include="Content\js\locales\LANG.js" />
+    <Content Include="Content\js\locales\pt-BR.js" />
+    <Content Include="Content\js\locales\ro.js" />
+    <Content Include="Content\js\locales\ru.js" />
+    <Content Include="Content\js\locales\ua.js" />
+    <Content Include="Content\js\locales\zh.js" />
+    <Content Include="Content\js\star-rating.js" />
+    <Content Include="Content\js\star-rating.min.js" />
     <Content Include="Content\SeguridadDashboard.css" />
     <Content Include="Content\SeguridadResponsiveDash.css" />
     <Content Include="Content\typeaheadjs.css" />
@@ -308,11 +333,14 @@
     <Content Include="Views\Home\_SolicitudPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutHomeSC.cshtml" />
     <Content Include="Views\Presupuestos\PresupuestosSolicitud.cshtml" />
+    <Content Include="Views\Servicios\MisServicios.cshtml" />
+    <Content Include="Views\Calificacion\CalificarServi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\bootstrap\" />
     <Folder Include="Content\fonts\" />
+    <Folder Include="Content\themes\" />
     <Folder Include="Views\Control\" />
     <Folder Include="Views\Inicio\" />
   </ItemGroup>

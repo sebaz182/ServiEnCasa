@@ -21,6 +21,7 @@ namespace ServiEnCasa_v01.Models
             this.Presupuestos = new HashSet<Presupuestos>();
             this.Perfiles = new HashSet<Perfiles>();
             this.Tareas = new HashSet<Tareas>();
+            this.CuentaCorriente = new HashSet<CuentaCorriente>();
         }
     
         public int Id_Servi { get; set; }
@@ -42,5 +43,7 @@ namespace ServiEnCasa_v01.Models
         public virtual ICollection<Perfiles> Perfiles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tareas> Tareas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CuentaCorriente> CuentaCorriente { get; set; }
     }
 }

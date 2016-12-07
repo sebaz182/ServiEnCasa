@@ -11,7 +11,7 @@ namespace ServiEnCasa_v01.Models
         public int id { get; set; }
 
         [Required]
-        [Display(Name ="Profesión")]
+        [Display(Name = "Profesión")]
         public string profesion { get; set; }
     }
 
@@ -35,7 +35,7 @@ namespace ServiEnCasa_v01.Models
 
     public class EditarTareaViewModel
     {
-        public int id { get; set; } 
+        public int id { get; set; }
 
         [Display(Name = "Profesión")]
         public string profesion { get; set; }
@@ -47,7 +47,7 @@ namespace ServiEnCasa_v01.Models
 
     public class CrearUsuarioViewModel
     {
-        public int id { get ; set; }
+        public int id { get; set; }
 
         [Required]
         [Display(Name = "Nombre")]
@@ -65,7 +65,7 @@ namespace ServiEnCasa_v01.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Confirmar E-Mail")]
-        [Compare ("mail",ErrorMessage ="El E-Mail no coincide")]
+        [Compare("mail", ErrorMessage = "El E-Mail no coincide")]
         public string confMail { get; set; }
 
         [Required]
@@ -185,7 +185,7 @@ namespace ServiEnCasa_v01.Models
         [Required]
         [Display(Name = "Tareas")]
         public int TareaId { get; set; }
-        
+
         public string Foto { get; set; }
 
         [Required]
@@ -203,5 +203,11 @@ namespace ServiEnCasa_v01.Models
         [Required]
         [Display(Name = "Zona")]
         public string Zona { get; set; }
+    }
+
+    public class RatingViewModel
+    {
+
+        //public bool  { get; set; }
     }
 }

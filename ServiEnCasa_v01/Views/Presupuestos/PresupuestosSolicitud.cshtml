@@ -1,4 +1,5 @@
-﻿@using ServiEnCasa_v01.Models
+﻿
+@using ServiEnCasa_v01.Models
 @model IEnumerable<ServiEnCasa_v01.Models.Presupuestos>
 @{
     ViewBag.Title = "Presupuestos de mi Solicitud";
@@ -33,7 +34,11 @@
                                 <h2 style="color:red">$ @presupuestos.Precio </h2>
 
                                 <div>
-                                    <a href="@Url.Action("PresupuestosSolicitudes", "Presupuestos", new { id = @presupuestos.Id_Presupuesto })" class="btn btn-danger"><i class="fa fa-heart-o"></i> Contratar</a>
+                                    @*<a href="@Url.Action("PresupuestosSolicitudes", "Presupuestos", new { id = @presupuestos.Id_Presupuesto })" class="btn btn-danger"><i class="fa fa-heart-o"></i> Contratar</a>*@
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalContratar">
+                                        Contratar
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -43,8 +48,27 @@
         }
         else
         {
-            @: <div class="text-muted">&nbsp;<h1>LO SENTIMOS!  :(</h1><br/><h2>Ningun Servi realizo un Presupuesto a tu Solucitud.</h2></div>
+            <div class="text-muted">&nbsp;<h1>LO SENTIMOS!  :(</h1><br/><h2>Ningun Servi realizo un Presupuesto a tu Solucitud.</h2></div>
 }
     </div>
 </div>
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalContratar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que quiere contratar este Servicio ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <input type="submit" href="@Url.Action("Contratar","Presupuestos",new { @idPresupuesto = 1 })" value="Contratar"  class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>

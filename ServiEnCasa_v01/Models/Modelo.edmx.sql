@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/17/2016 17:16:49
+-- Date Created: 11/25/2016 12:03:48
 -- Generated from EDMX file: C:\Users\Sebastian\Google Drive\Facultad\5to\SAP TFI\2 - Desarrollo\00 - Código\ServiEnCasa_v01\ServiEnCasa\ServiEnCasa_v01\Models\Modelo.edmx
 -- --------------------------------------------------
 
@@ -74,6 +74,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_HorariosSolicitudes]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Solicitudes] DROP CONSTRAINT [FK_HorariosSolicitudes];
 GO
+IF OBJECT_ID(N'[dbo].[FK_PresupuestosServicios]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ServiciosSet] DROP CONSTRAINT [FK_PresupuestosServicios];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ServisCuentaCorriente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CuentaCorrienteSet] DROP CONSTRAINT [FK_ServisCuentaCorriente];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -108,6 +114,12 @@ IF OBJECT_ID(N'[dbo].[Zonas]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Horarios]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Horarios];
+GO
+IF OBJECT_ID(N'[dbo].[ServiciosSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ServiciosSet];
+GO
+IF OBJECT_ID(N'[dbo].[CuentaCorrienteSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CuentaCorrienteSet];
 GO
 IF OBJECT_ID(N'[dbo].[ServisProfesiones]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ServisProfesiones];
@@ -234,6 +246,37 @@ CREATE TABLE [dbo].[Horarios] (
 );
 GO
 
+-- Creating table 'Servicios'
+CREATE TABLE [dbo].[Servicios] (
+    [Id_Servicio] int IDENTITY(1,1) NOT NULL,
+    [Estado] nvarchar(max)  NOT NULL,
+    [Presupuestos_Id_Presupuesto] int  NOT NULL
+);
+GO
+
+-- Creating table 'CuentaCorrientes'
+CREATE TABLE [dbo].[CuentaCorrientes] (
+    [Id_CtaCorriente] int IDENTITY(1,1) NOT NULL,
+    [Credito] decimal(18,0)  NOT NULL,
+    [Debito] decimal(18,0)  NOT NULL,
+    [Importe] decimal(18,0)  NOT NULL,
+    [Servis_Id_Servi] int  NOT NULL
+);
+GO
+
+-- Creating table 'Calificaciones'
+CREATE TABLE [dbo].[Calificaciones] (
+    [Id_Calificacion] int IDENTITY(1,1) NOT NULL,
+    [Obs_Servi] nvarchar(max)  NULL,
+    [Obs_Usuario] nvarchar(max)  NULL,
+    [Cumplimiento] bit  NULL,
+    [Cal_Servi] int  NULL,
+    [Cal_Usuario] int  NULL,
+    [Cal_Trabajo] int  NULL,
+    [Servicios_Id_Servicio] int  NOT NULL
+);
+GO
+
 -- Creating table 'ServisProfesiones'
 CREATE TABLE [dbo].[ServisProfesiones] (
     [Profesiones_Id_Profesion] int  NOT NULL,
@@ -338,6 +381,24 @@ GO
 ALTER TABLE [dbo].[Horarios]
 ADD CONSTRAINT [PK_Horarios]
     PRIMARY KEY CLUSTERED ([Id_Horario] ASC);
+GO
+
+-- Creating primary key on [Id_Servicio] in table 'Servicios'
+ALTER TABLE [dbo].[Servicios]
+ADD CONSTRAINT [PK_Servicios]
+    PRIMARY KEY CLUSTERED ([Id_Servicio] ASC);
+GO
+
+-- Creating primary key on [Id_CtaCorriente] in table 'CuentaCorrientes'
+ALTER TABLE [dbo].[CuentaCorrientes]
+ADD CONSTRAINT [PK_CuentaCorrientes]
+    PRIMARY KEY CLUSTERED ([Id_CtaCorriente] ASC);
+GO
+
+-- Creating primary key on [Id_Calificacion] in table 'Calificaciones'
+ALTER TABLE [dbo].[Calificaciones]
+ADD CONSTRAINT [PK_Calificaciones]
+    PRIMARY KEY CLUSTERED ([Id_Calificacion] ASC);
 GO
 
 -- Creating primary key on [Profesiones_Id_Profesion], [Servis_Id_Servi] in table 'ServisProfesiones'
@@ -627,6 +688,51 @@ GO
 CREATE INDEX [IX_FK_HorariosSolicitudes]
 ON [dbo].[Solicitudes]
     ([Horarios_Id_Horario]);
+GO
+
+-- Creating foreign key on [Presupuestos_Id_Presupuesto] in table 'Servicios'
+ALTER TABLE [dbo].[Servicios]
+ADD CONSTRAINT [FK_PresupuestosServicios]
+    FOREIGN KEY ([Presupuestos_Id_Presupuesto])
+    REFERENCES [dbo].[Presupuestos]
+        ([Id_Presupuesto])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PresupuestosServicios'
+CREATE INDEX [IX_FK_PresupuestosServicios]
+ON [dbo].[Servicios]
+    ([Presupuestos_Id_Presupuesto]);
+GO
+
+-- Creating foreign key on [Servis_Id_Servi] in table 'CuentaCorrientes'
+ALTER TABLE [dbo].[CuentaCorrientes]
+ADD CONSTRAINT [FK_ServisCuentaCorriente]
+    FOREIGN KEY ([Servis_Id_Servi])
+    REFERENCES [dbo].[Servis]
+        ([Id_Servi])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ServisCuentaCorriente'
+CREATE INDEX [IX_FK_ServisCuentaCorriente]
+ON [dbo].[CuentaCorrientes]
+    ([Servis_Id_Servi]);
+GO
+
+-- Creating foreign key on [Servicios_Id_Servicio] in table 'Calificaciones'
+ALTER TABLE [dbo].[Calificaciones]
+ADD CONSTRAINT [FK_ServiciosCalificaciones]
+    FOREIGN KEY ([Servicios_Id_Servicio])
+    REFERENCES [dbo].[Servicios]
+        ([Id_Servicio])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ServiciosCalificaciones'
+CREATE INDEX [IX_FK_ServiciosCalificaciones]
+ON [dbo].[Calificaciones]
+    ([Servicios_Id_Servicio]);
 GO
 
 -- --------------------------------------------------
